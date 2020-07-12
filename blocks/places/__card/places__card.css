@@ -1,0 +1,9 @@
+.places__card {
+    width: 282px;
+    height: 362px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

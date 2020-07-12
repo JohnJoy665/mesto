@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./pages/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <img src="./images/logo.svg" alt="логотип" class="header__logo">
+            <div class="header__line"></div>
+        </header>
+        <main class="content">
+            <section class="profile">
+                <img src="./images/Jacques-Yves Cousteau.jpg" alt="Фото героя" class="profile__avatar">
+
+                <div class="profile__info">
+                    <div class="profile__person">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button"></button>
+                    </div>
+                    <p class="profile__job">Исследователь океана</p>
+                </div>
+                
+                <button class="profile__add-button"></button>
+            </section>
+            <section class="places">
+                <ul class="places__cards">
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/karachevsk-1.png" alt="илл. ">
+                        <h2 class="places__title">Карачаевск</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/gora-elbrus-1.png" alt="илл. ">
+                        <h2 class="places__title">Гора Эльбрус</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/dombai-1.png" alt="илл. ">
+                        <h2 class="places__title">Домбай</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/gora-elbrus-1.png" alt="илл. ">
+                        <h2 class="places__title">Гора Эльбрус</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/dombai-1.png" alt="илл. ">
+                        <h2 class="places__title">Домбай</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                    <li class="places__card">
+                        <img class="places__picture" src="./images/karachevsk-1.png" alt="илл. ">
+                        <h2 class="places__title">Карачаевск</h2>
+                        <img src="./images/like.svg" alt="" class="places__like">
+                    </li>
+                </ul>
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="footer__copyright">&#169 2020 Mesto Russia</p>
+        </footer>
+    </div>
+    <div class="popup">
+        <div class="popup__container">
+            <button class="popup__close-button"></button>
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <form class="popup__form">
+                <input type="text" class="popup__input popup__input-namme" value="Пример">
+                <input type="text" class="popup__input popup__input-job" value="Пример2">
+                <button class="popup__submit-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
