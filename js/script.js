@@ -9,19 +9,21 @@ let jobInput = formElement.querySelector('.popup__input-job');
 
 
 function toggleModal() {
-    nameInput.value = personName.textContent;
-    jobInput.value = personJob.textContent;
-    modal.classList.toggle('popup_is-open')
+    if (!modal.classList.contains('popup_is-open')) {
+        nameInput.value = personName.textContent;
+        jobInput.value = personJob.textContent;
+    }
+    modal.classList.toggle('popup_is-open');
 }
 
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
     evt.preventDefault();
     personName.textContent = nameInput.value;
     personJob.textContent = jobInput.value;
-    modal.classList.toggle('popup_is-open')
+    modal.classList.toggle('popup_is-open');
 }
 
-openModalButton.addEventListener('click', toggleModal)
+openModalButton.addEventListener('click', toggleModal);
 closeModalButton.addEventListener('click', toggleModal);
 formElement.addEventListener('submit', formSubmitHandler);
 

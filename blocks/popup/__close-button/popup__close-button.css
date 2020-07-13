@@ -13,18 +13,8 @@
     padding: 0;
 }
 
-.popup__close-button::after { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0; 
-    background: rgb(0, 0, 0);
-    opacity: 0; 
+.popup__close-button:hover { 
+    opacity: 0.6;
     }
 
-.popup__close-button:hover::after { 
-    opacity: 0.4;
-    transition:all 0.3s ease;
-}
+    
