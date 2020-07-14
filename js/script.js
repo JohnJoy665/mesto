@@ -4,8 +4,8 @@ const modal = document.querySelector('.popup');
 let personName = document.querySelector('.profile__title');
 let personJob = document.querySelector('.profile__job');
 let formElement = document.querySelector('.popup__form');
-let nameInput = formElement.querySelector('.popup__input-namme');
-let jobInput = formElement.querySelector('.popup__input-job');
+let nameInput = formElement.querySelector('.popup__input_name');
+let jobInput = formElement.querySelector('.popup__input_job');
 
 
 function toggleModal() {
