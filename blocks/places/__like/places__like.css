@@ -10,3 +10,7 @@
     border: none;
     background-position: center;
 }
+
+.places__like:hover {
+  opacity: 0.5;
+}
