@@ -18,3 +18,10 @@
     padding-left: 50px;
     padding-right: 50px;
 }
+
+@media screen and (max-width: 345px) {
+  .popup {
+    width: calc(100% - 94px);
+  }
+}
+
