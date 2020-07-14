@@ -1,11 +1,21 @@
 @import url(../header/__logo/header__logo.css);
-@import url(../header/__line/header__line.css);
 
 .header {
+  position: relative;
     max-width: 882px;
     margin: auto;
     padding-top: 45px;
 }
+
+header::after{
+  display: block;
+  position: absolute;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #545454;
+  opacity: 0.7;
+  }
 
 @media screen and (max-width: 882px) {
     .header {
