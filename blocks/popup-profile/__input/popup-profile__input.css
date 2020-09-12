@@ -1,0 +1,16 @@
+.popup-profile__input {
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 11px;
+}
+
+.popup-profile__input:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}

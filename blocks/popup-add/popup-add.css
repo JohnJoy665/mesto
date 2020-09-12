@@ -1,0 +1,27 @@
+@import url(./__container/popup-add__container.css);
+@import url(./__close-button/popup-add__close-button.css);
+@import url(./__title/popup-add__title.css);
+@import url(./__form/popup-add__form.css);
+@import url(./__input/popup-add__input.css);
+@import url(./__submit-button/popup-add__submit-button.css);
+
+.popup-add {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 80px);
+    height: 100%;
+    background-color: #00000081;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+@media screen and (max-width: 345px) {
+  .popup-add {
+    width: calc(100% - 94px);
+  }
+}
+

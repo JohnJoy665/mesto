@@ -1,4 +1,5 @@
 .places__card {
+  position: relative;
     width: 282px;
     height: 362px;
     background-color: #FFFFFF;

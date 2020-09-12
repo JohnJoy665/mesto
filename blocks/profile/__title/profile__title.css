@@ -1,6 +1,6 @@
 .profile__title {
     max-width: 450px;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 42px;
@@ -17,5 +17,5 @@
         max-width: 100%;
         font-size: 25px;
         padding-top: 25px;
-    }    
+    }
 }
