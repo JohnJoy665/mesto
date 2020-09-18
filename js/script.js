@@ -81,13 +81,17 @@ closePopupAddButton.addEventListener('click', toggleCards);
 function render() {
   plascesCards.innerHTML = '';
   initialCards.forEach(renderItem);
+  setListeners();
 }
 
-// отрисовка одной карточки
-function renderItem(item) {
+// отрисовка каждой карточки
+function renderItem(item, index) {
   const newCard = cardTemplate.cloneNode(true);
   newCard.querySelector('.places__picture').src = item.link;
   newCard.querySelector('.places__title').textContent = item.name;
+  newCard.querySelector('.places__picture').alt = item.name;
+  newCard.querySelector('.places__card').setAttribute('id', index);
+  initialCards[index].like == true ? newCard.querySelector('.places__like').classList.add('places__like_is-active') : '';
   plascesCards.append(newCard);
 }
 
@@ -102,66 +106,53 @@ function handleSubmit(evt) {
   render();
 }
 
-formAddCardElement.addEventListener('submit', handleSubmit);
-render();
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// открытие/закрытие попапа для карточек
-function toggleCards() {
-  modalAddCard.classList.toggle('popup-add_is-open');
+function handleDelete(evt) {
+  index = evt.target.parentNode.getAttribute('id');
+  initialCards.splice(index, 1);
+  render();
 }
-openPopupAddButton.addEventListener('click', toggleCards);
-closePopupAddButton.addEventListener('click', toggleCards);
+
+function handleLike(evt) {
+  index = evt.target.parentNode.getAttribute('id');
+  evt.target.classList.toggle('places__like_is-active');
+  initialCards[index].like = true;
+}
+
+let popupGalary = document.querySelector('.popup-galary');
+let galaryContainer = popupGalary.querySelector('.popup-galary__container');
+let galaryCloseButton = galaryContainer.querySelector('.popup-galary__close-button');
+let galaryImg = galaryContainer.querySelector('.popup-galary__full-size-img');
+let galaryTitle = galaryContainer.querySelector('.popup-galary__title-img');
 
 
-// создание 6 карточек в начале загрузки и добавление по одной впоследствии/удаление карточки
-let formAddCardElement = document.querySelector('.popup-add__form');
-let titleInput = formAddCardElement.querySelector('.popup-add__input_title');
-let linkInput = formAddCardElement.querySelector('.popup-add__input_link');
+function handleOpenImg(evt) {
+  toggleImg();
+  index = evt.target.parentNode.getAttribute('id');
+  galaryImg.src = initialCards[index].link;
+  galaryTitle.innerHTML = initialCards[index].name;
+}
 
-function createCards(check) {
-  check.forEach(function (item) {
-    let newCard = cardTemplate.cloneNode(true);
-    newCard.querySelector('.places__picture').src = item.link;
-    newCard.querySelector('.places__title').textContent = item.name;
-    if (check.length > 1) {
-      plascesCards.append(newCard);
-    } else {
-      console.log(plascesCards)
-      plascesCards.prepend(newCard);
-    }
-    plascesCards.querySelectorAll('.places__del-button').forEach((listenCards) => listenCards.addEventListener('click', function (evt) {
-      evt.target.parentElement.remove()
-      console.log(evt.target)
-    }))
-    plascesCards.querySelectorAll('.places__like').forEach((listenCards) => listenCards.addEventListener('click', function (evt) {
-      evt.target.classList.toggle('places__like_is-active');
-    }))
+// открытие/закрытие u галереи
+function toggleImg() {
+  popupGalary.classList.toggle('popup-galary_is-open');
+}
+galaryCloseButton.addEventListener('click', toggleImg);
+
+
+
+
+function setListeners() {
+  formAddCardElement.addEventListener('submit', handleSubmit)
+  document.querySelectorAll('.places__del-button').forEach((btn) => {
+    btn.addEventListener('click', handleDelete)
+  })
+  document.querySelectorAll('.places__like').forEach((btn) => {
+    btn.addEventListener('click', handleLike)
+  })
+  document.querySelectorAll('.places__picture').forEach((card) => {
+    card.addEventListener('click', handleOpenImg)
   })
 }
 
-function formSubmitAddCard(evt) {
-  evt.preventDefault();
-  let newCardValues = [{
-    name: titleInput.value,
-    link: linkInput.value
-  }]
-  createCards(newCardValues);
-  modalAddCard.classList.toggle('popup-add_is-open');
-}
 
-formAddCardElement.addEventListener('submit', formSubmitAddCard);
-createCards(initialCards);
-
-*/
+render();

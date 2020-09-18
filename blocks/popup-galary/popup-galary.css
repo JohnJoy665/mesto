@@ -1,0 +1,21 @@
+@import url(./__container/popup-galary__container.css);
+@import url(./__full-size-img/popup-galary__full-size-img.css);
+@import url(./__close-button/popup-galary__close-button.css);
+@import url(./__title-img/popup-galary__title-img.css);
+
+
+.popup-galary {
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  background-color:#00000081;
+  width: calc(100% - 92px);
+  height: 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}

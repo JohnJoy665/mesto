@@ -6,7 +6,9 @@
 @import url(./__submit-button/popup-add__submit-button.css);
 
 .popup-add {
+  /*
     display: none;
+    */
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -17,6 +19,9 @@
     background-color: #00000081;
     padding-left: 50px;
     padding-right: 50px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
 }
 
 @media screen and (max-width: 345px) {
