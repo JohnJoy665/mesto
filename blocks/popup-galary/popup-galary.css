@@ -5,6 +5,7 @@
 
 
 .popup-galary {
+  display: flex;
   position: fixed;
   justify-content: center;
   align-items: center;
@@ -17,5 +18,5 @@
   padding-right: 50px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: opacity 0.5s, visibility 0.5s linear;
 }

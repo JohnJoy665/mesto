@@ -6,9 +6,7 @@
 @import url(./__submit-button/popup-profile__submit-button.css);
 
 .popup-profile {
-  /*
-    display: none;
-    */
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -21,7 +19,7 @@
     padding-right: 50px;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
+    transition: opacity 0.5s, visibility 0.5s linear;
 }
 
 @media screen and (max-width: 345px) {

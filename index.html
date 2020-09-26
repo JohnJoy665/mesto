@@ -37,35 +37,35 @@
       <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup-profile">
-    <div class="popup-profile__container">
-      <button type="button" class="popup-profile__close-button"></button>
-      <h3 class="popup-profile__title">Редактировать профиль</h3>
-      <form class="popup-profile__form" name="popup-profile__form">
-        <input type="text" class="popup-profile__input popup-profile__input_name" value="test" name="input-name">
-        <input type="text" class="popup-profile__input popup-profile__input_job" value="test" name="input-job">
-        <button class="popup-profile__submit-button" type="submit" name="save-button">Сохранить</button>
+  <div class="popup popup_profile">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button"></button>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form class="popup__form" name="popup-profile__form">
+        <input type="text" class="popup__input popup-profile__input_name" value="" name="input-name">
+        <input type="text" class="popup__input popup-profile__input_job" value="" name="input-job">
+        <button class="popup__submit-button" type="submit" name="save-button">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="popup-add">
-    <div class="popup-add__container">
-      <button type="button" class="popup-add__close-button"></button>
-      <h3 class="popup-add__title">Новое место</h3>
-      <form class="popup-add__form" name="popup-add__form">
-        <input type="text" class="popup-add__input popup-add__input_title" value="" placeholder="Название" name="input-title" required>
-        <input type="url" class="popup-add__input popup-add__input_link" value="" placeholder="Ссылка на картинку" name="input-link" required>
-        <button class="popup-add__submit-button" type="submit" name="save-button">Сохранить</button>
+  <div class="popup popup_add-card">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__form" name="popup-add__form">
+        <input type="text" class="popup__input popup-add__input_title" value="" placeholder="Название" name="input-title" required>
+        <input type="url" class="popup__input popup-add__input_link" value="" placeholder="Ссылка на картинку" name="input-link" required>
+        <button class="popup__submit-button" type="submit" name="save-button">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="popup-galary">
-    <div class="popup-galary__container">
-      <button type="button" class="popup-galary__close-button"></button>
+  <div class="popup popup_galary">
+    <div class="popup__container popup__container_galary">
+      <button type="button" class="popup__close-button"></button>
       <img class="popup-galary__full-size-img" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg">
-      <h1 class="popup-galary__title-img">Полная хня</h1>
+      <p class="popup__title popup__title_galary">eee</p>
     </div>
   </div>
 
@@ -73,10 +73,11 @@
     <li class="places__card">
       <button class="places__del-button" type="button"></button>
       <img class="places__picture" src="" alt="">
-      <h2 class="places__title"></h2>
+      <p class="places__title"></p>
       <button class="places__like" type="button"></button>
     </li>
   </template>
+  <script src="./js/initialCards.js"></script>
   <script src="./js/script.js"></script>
 </body>
 

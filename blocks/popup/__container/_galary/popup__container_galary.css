@@ -1,0 +1,10 @@
+.popup__container_galary {
+  position: fixed;
+  max-width: 75vw;
+  max-height: 75vh;
+  width: auto;
+  background: none;
+  box-shadow: none;
+  padding: initial;
+}
+

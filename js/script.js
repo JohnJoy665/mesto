@@ -1,158 +1,130 @@
-const openProfileButton = document.querySelector('.profile__edit-button');
-const closeProfileButton = document.querySelector('.popup-profile__close-button');
-const modalProfile = document.querySelector('.popup-profile');
-const plascesCards = document.querySelector('.places__cards')
+// console.log(initialCards);
+
+const profile = document.querySelector('.profile');
+const popup = document.querySelector('.popup');
+const popupAddCard = document.querySelector('.popup_add-card');
+const popupAddForm = popupAddCard.querySelector('.popup__form')
+const popupAddInputTitle = popupAddForm.querySelector('.popup-add__input_title')
+const popupAddInputLink = popupAddForm.querySelector('.popup-add__input_link')
+const popupFormProfile = document.querySelector('.popup_profile');
+const profileInfo = document.querySelector('.profile__info');
+const profileEditButton = profile.querySelector('.profile__edit-button');
+const profileAddButton = profile.querySelector('.profile__add-button');
+const popupProfileInputName = popup.querySelector('.popup-profile__input_name');
+const popupProfileInputJob = popup.querySelector('.popup-profile__input_job');
+const profileTitle = profileInfo.querySelector('.profile__title');
+const profileJob = profileInfo.querySelector('.profile__job');
+const popupCloseButton = document.querySelectorAll('.popup__close-button')
+const popupProfileForm = popupFormProfile.querySelector('.popup__form')
 const cardTemplate = document.querySelector('#card').content;
-const openPopupAddButton = document.querySelector('.profile__add-button');
-const closePopupAddButton = document.querySelector('.popup-add__close-button');
-const modalAddCard = document.querySelector('.popup-add');
-const formAddCardElement = modalAddCard.querySelector('.popup-add__form');
-const addButton = formAddCardElement.querySelector('.popup-add__submit-button')
-const titleInput = formAddCardElement.querySelector('.popup-add__input_title');
-const linkInput = formAddCardElement.querySelector('.popup-add__input_link');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const plascesCards = document.querySelector('.places__cards');
+const popupGalary = document.querySelector('.popup_galary');
 
-
-// Открытие/закрыти/редактирование профиля
-let personName = document.querySelector('.profile__title');
-let personJob = document.querySelector('.profile__job');
-let formElement = document.querySelector('.popup-profile__form');
-let nameInput = formElement.querySelector('.popup-profile__input_name');
-let jobInput = formElement.querySelector('.popup-profile__input_job');
-
-
-function toggleModal() {
-  if (!modalProfile.classList.contains('popup-profile_is-open')) {
-    nameInput.value = personName.textContent;
-    jobInput.value = personJob.textContent;
-  }
-  modalProfile.classList.toggle('popup-profile_is-open');
+// Открытие/закрытие попапов (присваивает, убирает 'popup_visible)
+function toggleModal(modal) {
+    modal.classList.toggle('popup_visible')
 }
 
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  personName.textContent = nameInput.value;
-  personJob.textContent = jobInput.value;
-  modalProfile.classList.toggle('popup-profile_is-open');
+// Вписывание при открытие в инпуты текста из карточки
+function openProfileModal() {
+    if (!popupFormProfile.classList.contains('popup_visible')) {
+        popupProfileInputName.value = profileTitle.textContent
+        popupProfileInputJob.value = profileJob.textContent
+    }
+    toggleModal(popupFormProfile)
 }
 
-openProfileButton.addEventListener('click', toggleModal);
-closeProfileButton.addEventListener('click', toggleModal);
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-
-
-// открытие/закрытие попапа для карточек
-function toggleCards() {
-  modalAddCard.classList.toggle('popup-add_is-open');
-}
-openPopupAddButton.addEventListener('click', toggleCards);
-closePopupAddButton.addEventListener('click', toggleCards);
-
-
-
-// Отрисовка карточек
-function render() {
-  plascesCards.innerHTML = '';
-  initialCards.forEach(renderItem);
-  setListeners();
+// Открытие карточки для добавления картинок
+function openAddCardModal() {
+    toggleModal(popupAddCard)
 }
 
-// отрисовка каждой карточки
-function renderItem(item, index) {
-  const newCard = cardTemplate.cloneNode(true);
-  newCard.querySelector('.places__picture').src = item.link;
-  newCard.querySelector('.places__title').textContent = item.name;
-  newCard.querySelector('.places__picture').alt = item.name;
-  newCard.querySelector('.places__card').setAttribute('id', index);
-  initialCards[index].like == true ? newCard.querySelector('.places__like').classList.add('places__like_is-active') : '';
-  plascesCards.append(newCard);
+// Поиск модала, для закрытия нужного окна
+function closePopup(btn) {
+    popupModal = btn.target.parentElement.parentElement
+    toggleModal(popupModal)
 }
 
-function handleSubmit(evt) {
-  evt.preventDefault();
-  let newCardValues = {
-    name: titleInput.value,
-    link: linkInput.value
-  }
-  initialCards.unshift(newCardValues);
-  toggleCards();
-  render();
+
+// изменение информации в профайле
+// закрытие карточки по нажатию на сабмит
+function submitformHandler(evt) {
+    evt.preventDefault();
+    profileTitle.textContent = popupProfileInputName.value;
+    profileJob.textContent = popupProfileInputJob.value;
+    toggleModal(evt.target.parentElement.parentElement)
 }
 
+
+// создание карточки
+// создает шаблон и записывает с помощью name и link соответствующие параметры в шаблон
+// слушает, не кликнули ли по удалению
+// слушает, не кликнули ли по лайку
+// слушает, не кликнули ли по картинке
+// возвращает шаблон в createCard
+function createCard(name, link) {
+    const newCard = cardTemplate.cloneNode(true);
+    newCard.querySelector('.places__picture').src = link;
+    newCard.querySelector('.places__title').textContent = name;
+    newCard.querySelector('.places__picture').alt = name;
+    newCard.querySelector('.places__del-button').addEventListener('click', handleDelete);
+    newCard.querySelector('.places__like').addEventListener('click', handleLike);
+    newCard.querySelector('.places__picture').addEventListener('click', openGalaryModal);
+    return newCard;
+}
+
+// добавление карточки в конец контейнера (при первой отрисовки всех карточек из массива) 
+// принимает контейнер и созданную карточку
+// ставит карточку в конец контейнера
+function addCardToEnd(container, cardElement) {
+    container.append(cardElement);
+}
+
+// добавление карточки в начало контейнера
+// создает cardElement через ф-ию
+// создает карточку вначале элемента
+// обнуляет значения в инпутах для послед. открытий
+// закрывает инпут
+function addCardToStart(evt) {
+    evt.preventDefault();
+    cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
+    plascesCards.prepend(cardElement);
+    popupAddInputTitle.value = ''
+    popupAddInputLink.value = ''
+    toggleModal(evt.target.parentElement.parentElement)
+}
+
+// Отрисовка всех карточек
+// берет массив и раскладывает на элементы
+// вызывает функцию добавления карточек в конец массива. Передает этой функции контейнер и вызывает функцию создания карточки, передав ей имя и ссылку элемента массива
+initialCards.forEach(element => {
+    addCardToEnd(plascesCards, createCard(element.name, element.link))
+})
+
+// Удаление карточки
+// определяет родительский элемент для кнопки удаления (карточка), удаляеит его
 function handleDelete(evt) {
-  index = evt.target.parentNode.getAttribute('id');
-  initialCards.splice(index, 1);
-  render();
+    evt.target.parentNode.remove();
 }
 
+// Проставление лайка
+// меняет класс у лайка
 function handleLike(evt) {
-  index = evt.target.parentNode.getAttribute('id');
-  evt.target.classList.toggle('places__like_is-active');
-  initialCards[index].like = true;
+    evt.target.classList.toggle('places__like_is-active');
 }
 
-let popupGalary = document.querySelector('.popup-galary');
-let galaryContainer = popupGalary.querySelector('.popup-galary__container');
-let galaryCloseButton = galaryContainer.querySelector('.popup-galary__close-button');
-let galaryImg = galaryContainer.querySelector('.popup-galary__full-size-img');
-let galaryTitle = galaryContainer.querySelector('.popup-galary__title-img');
-
-
-function handleOpenImg(evt) {
-  toggleImg();
-  index = evt.target.parentNode.getAttribute('id');
-  galaryImg.src = initialCards[index].link;
-  galaryTitle.innerHTML = initialCards[index].name;
+// Открывает галерею
+// Подставляет значения из попапа в открывшееся окно
+function openGalaryModal(evt) {
+    toggleModal(popupGalary)
+    popupGalary.querySelector('.popup-galary__full-size-img').src = evt.target.getAttribute('src')
+    popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
 }
 
-// открытие/закрытие u галереи
-function toggleImg() {
-  popupGalary.classList.toggle('popup-galary_is-open');
-}
-galaryCloseButton.addEventListener('click', toggleImg);
-
-
-
-
-function setListeners() {
-  formAddCardElement.addEventListener('submit', handleSubmit)
-  document.querySelectorAll('.places__del-button').forEach((btn) => {
-    btn.addEventListener('click', handleDelete)
-  })
-  document.querySelectorAll('.places__like').forEach((btn) => {
-    btn.addEventListener('click', handleLike)
-  })
-  document.querySelectorAll('.places__picture').forEach((card) => {
-    card.addEventListener('click', handleOpenImg)
-  })
-}
-
-
-render();
+popupAddForm.addEventListener('submit', addCardToStart)
+popupProfileForm.addEventListener('submit', submitformHandler);
+profileEditButton.addEventListener('click', openProfileModal);
+profileAddButton.addEventListener('click', openAddCardModal);
+popupCloseButton.forEach(btn => {
+    btn.addEventListener('click', closePopup.bind(btn))
+});

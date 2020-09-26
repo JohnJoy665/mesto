@@ -5,13 +5,21 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/footer/footer.css);
-@import url(../blocks/popup-profile/popup-profile.css);
-@import url(../blocks/popup-add/popup-add.css);
-@import url(../blocks/popup-profile/_is-open/popup-profile_is-open.css);
-@import url(../blocks/popup-add/_is-open/popup-add_is-open.css);
+
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_profile/popup_profile.css);
+@import url(../blocks/popup/_galary/popup_galary.css);
+@import url(../blocks/popup/_add-card/popup_add-card.css);
+@import url(../blocks/popup/__container/_add-card/popup__container_add-card.css);
+@import url(../blocks/popup/__container/_galary/popup__container_galary.css);
+@import url(../blocks/popup/__container/_profile/popup__container_profile.css);
+@import url(../blocks/popup/__title/_galary/popup__title_galary.css);
 @import url(../blocks/places/__like/_is-active/places__like_is-active.css);
-@import url(../blocks/popup-galary/popup-galary.css);
-@import url(../blocks/popup-galary/_is-open/popup-galary_is-open.css);
+@import url(../blocks/popup/_visible/popup_visible.css);
+
+
+
 
 
 
