@@ -4,14 +4,12 @@ const profile = document.querySelector('.profile');
 const popup = document.querySelector('.popup');
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupAddForm = popupAddCard.querySelector('.popup__form')
-const popupAddInputTitle = popupAddForm.querySelector('.popup-add__input_title')
-const popupAddInputLink = popupAddForm.querySelector('.popup-add__input_link')
+const popupAddInputTitle = popupAddForm.querySelector('.popup__input_title')
+const popupAddInputLink = popupAddForm.querySelector('.popup__input_link')
 const popupFormProfile = document.querySelector('.popup_profile');
 const profileInfo = document.querySelector('.profile__info');
 const profileEditButton = profile.querySelector('.profile__edit-button');
 const profileAddButton = profile.querySelector('.profile__add-button');
-const popupProfileInputName = popup.querySelector('.popup-profile__input_name');
-const popupProfileInputJob = popup.querySelector('.popup-profile__input_job');
 const profileTitle = profileInfo.querySelector('.profile__title');
 const profileJob = profileInfo.querySelector('.profile__job');
 const popupCloseButton = document.querySelectorAll('.popup__close-button')
@@ -19,6 +17,10 @@ const popupProfileForm = popupFormProfile.querySelector('.popup__form')
 const cardTemplate = document.querySelector('#card').content;
 const plascesCards = document.querySelector('.places__cards');
 const popupGalary = document.querySelector('.popup_galary');
+const popupInputName = popup.querySelector('.popup__input_name');
+const popupInputJob = popup.querySelector('.popup__input_job');
+
+console.log(popupAddInputTitle);
 
 // Открытие/закрытие попапов (присваивает, убирает 'popup_visible)
 function toggleModal(modal) {
@@ -27,10 +29,8 @@ function toggleModal(modal) {
 
 // Вписывание при открытие в инпуты текста из карточки
 function openProfileModal() {
-    if (!popupFormProfile.classList.contains('popup_visible')) {
-        popupProfileInputName.value = profileTitle.textContent
-        popupProfileInputJob.value = profileJob.textContent
-    }
+    popupInputName.value = profileTitle.textContent
+    popupInputJob.value = profileJob.textContent
     toggleModal(popupFormProfile)
 }
 
@@ -39,19 +39,13 @@ function openAddCardModal() {
     toggleModal(popupAddCard)
 }
 
-// Поиск модала, для закрытия нужного окна
-function closePopup(btn) {
-    popupModal = btn.target.parentElement.parentElement
-    toggleModal(popupModal)
-}
-
 
 // изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
 function submitformHandler(evt) {
     evt.preventDefault();
-    profileTitle.textContent = popupProfileInputName.value;
-    profileJob.textContent = popupProfileInputJob.value;
+    profileTitle.textContent = popupInputName.value;
+    profileJob.textContent = popupInputJob.value;
     toggleModal(evt.target.parentElement.parentElement)
 }
 
@@ -117,7 +111,7 @@ function handleLike(evt) {
 // Подставляет значения из попапа в открывшееся окно
 function openGalaryModal(evt) {
     toggleModal(popupGalary)
-    popupGalary.querySelector('.popup-galary__full-size-img').src = evt.target.getAttribute('src')
+    popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
     popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
 }
 
@@ -125,6 +119,6 @@ popupAddForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitformHandler);
 profileEditButton.addEventListener('click', openProfileModal);
 profileAddButton.addEventListener('click', openAddCardModal);
-popupCloseButton.forEach(btn => {
-    btn.addEventListener('click', closePopup.bind(btn))
-});
+popupCloseButton.forEach(btn => { 
+    btn.addEventListener('click', () => toggleModal(btn.closest('.popup'))) 
+})
