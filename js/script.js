@@ -1,5 +1,7 @@
 // console.log(initialCards);
 
+
+
 const profile = document.querySelector('.profile');
 const popup = document.querySelector('.popup');
 const popupAddCard = document.querySelector('.popup_add-card');
@@ -20,33 +22,67 @@ const popupGalary = document.querySelector('.popup_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
 
-console.log(popupAddInputTitle);
 
-// Открытие/закрытие попапов (присваивает, убирает 'popup_visible)
-function toggleModal(modal) {
-    modal.classList.toggle('popup_visible')
+// проверяет, кликнул ли человек esc
+// если да - закрываем
+function testFunction(evt) {
+    const modal = document.querySelector('.popup_visible')
+    if (evt.keyCode == 27) {
+        closeModal(modal);
+        removeEventListener("keydown", testFunction);
+    }
+}
+
+// навешивает слушатель на кнопку
+function setEscListener() {
+    addEventListener("keydown", testFunction);
+}
+
+// проверяет, кликнул ли человек по попапу или мимо
+// если мимо - закрываем
+function checkOverlay(evt) {
+    if (evt.target.classList.contains('popup_visible')) {
+        closeModal(evt.target)
+    }
+}
+
+// Ищем оверлей
+// вешаем обработчик на область
+const setOverlayListener = (modal) => {
+    modal.addEventListener('mousedown', checkOverlay)
+}
+
+// Открываем ПопАп
+function openModal(modal) {
+    modal.classList.add('popup_visible');
+    setOverlayListener(modal);
+    setEscListener();
+}
+
+function closeModal(modal) {
+    modal.classList.remove('popup_visible')
 }
 
 // Вписывание при открытие в инпуты текста из карточки
 function openProfileModal() {
     popupInputName.value = profileTitle.textContent
     popupInputJob.value = profileJob.textContent
-    toggleModal(popupFormProfile)
+    openModal(popupFormProfile)
 }
 
 // Открытие карточки для добавления картинок
 function openAddCardModal() {
-    toggleModal(popupAddCard)
+    openModal(popupAddCard)
 }
 
 
 // изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
 function submitformHandler(evt) {
-    evt.preventDefault();
+    // evt.preventDefault(); - перенес в validate.js
     profileTitle.textContent = popupInputName.value;
     profileJob.textContent = popupInputJob.value;
-    toggleModal(evt.target.parentElement.parentElement)
+    closeModal(evt.target.parentElement.parentElement)
 }
 
 
@@ -80,12 +116,12 @@ function addCardToEnd(container, cardElement) {
 // обнуляет значения в инпутах для послед. открытий
 // закрывает инпут
 function addCardToStart(evt) {
-    evt.preventDefault();
+    // evt.preventDefault(); - перенес в validate.js
     cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
     plascesCards.prepend(cardElement);
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
-    toggleModal(evt.target.parentElement.parentElement)
+    closeModal(evt.target.parentElement.parentElement)
 }
 
 // Отрисовка всех карточек
@@ -110,7 +146,7 @@ function handleLike(evt) {
 // Открывает галерею
 // Подставляет значения из попапа в открывшееся окно
 function openGalaryModal(evt) {
-    toggleModal(popupGalary)
+    openModal(popupGalary)
     popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
     popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
 }
@@ -119,6 +155,8 @@ popupAddForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitformHandler);
 profileEditButton.addEventListener('click', openProfileModal);
 profileAddButton.addEventListener('click', openAddCardModal);
-popupCloseButton.forEach(btn => { 
-    btn.addEventListener('click', () => toggleModal(btn.closest('.popup'))) 
+popupCloseButton.forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.closest('.popup')))
 })
+
+

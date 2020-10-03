@@ -14,3 +14,11 @@
   outline: 0;
   outline-offset: 0;
 }
+/* 
+.popup__input:not(:focus):valid {
+  border-bottom: 1px solid green;
+}
+
+.popup__input:not(:focus):invalid {
+  border-bottom: 1px solid #FF0000;
+} */
