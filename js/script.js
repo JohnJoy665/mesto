@@ -25,17 +25,17 @@ const popupInputJob = popup.querySelector('.popup__input_job');
 
 // проверяет, кликнул ли человек esc
 // если да - закрываем
-function testFunction(evt) {
+function clodeOnEsc(evt) {
     const modal = document.querySelector('.popup_visible')
     if (evt.keyCode == 27) {
         closeModal(modal);
-        removeEventListener("keydown", testFunction);
+        
     }
 }
 
 // навешивает слушатель на кнопку
 function setEscListener() {
-    addEventListener("keydown", testFunction);
+    addEventListener("keydown", clodeOnEsc);
 }
 
 // проверяет, кликнул ли человек по попапу или мимо
@@ -61,6 +61,7 @@ function openModal(modal) {
 
 function closeModal(modal) {
     modal.classList.remove('popup_visible')
+    removeEventListener("keydown", clodeOnEsc);
 }
 
 // Вписывание при открытие в инпуты текста из карточки
