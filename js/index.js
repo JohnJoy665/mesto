@@ -173,15 +173,15 @@ function addCardToStart(evt) {
 
 // 13 Удаление карточки
 // определяет родительский элемент для кнопки удаления (карточка), удаляеит его
-function handleDelete(evt) {
-    evt.target.parentNode.remove();
-}
+// function handleDelete(evt) {
+//     evt.target.parentNode.remove();
+// }
 
 // 14 Проставление лайка
 // меняет класс у лайка
-function handleLike(evt) {
-    evt.target.classList.toggle('places__like_is-active');
-}
+// function handleLike(evt) {
+//     evt.target.classList.toggle('places__like_is-active');
+// }
 
 // 15 Открывает галерею
 // Подставляет значения из попапа в открывшееся окно
