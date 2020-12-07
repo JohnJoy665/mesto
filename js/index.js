@@ -146,9 +146,9 @@ function submitformHandler(evt) {
 // 10 добавление карточки в конец контейнера (при первой отрисовки всех карточек из массива) 
 // принимает контейнер и созданную карточку
 // ставит карточку в конец контейнера
-function addCardToEnd(container, cardElement) {
-    container.append(cardElement);
-}
+// function addCardToEnd(container, cardElement) {
+//     container.append(cardElement);
+// }
 
 // 11 добавление карточки в начало контейнера
 // создает cardElement через ф-ию
@@ -167,9 +167,9 @@ function addCardToStart(evt) {
 // 12 Отрисовка всех карточек
 // берет массив и раскладывает на элементы
 // вызывает функцию добавления карточек в конец массива. Передает этой функции контейнер и вызывает функцию создания карточки, передав ей имя и ссылку элемента массива
-initialCards.forEach(element => {
-    // addCardToEnd(plascesCards, createCard(element.name, element.link))
-})
+// initialCards.forEach(element => {
+//     // addCardToEnd(plascesCards, createCard(element.name, element.link))
+// })
 
 // 13 Удаление карточки
 // определяет родительский элемент для кнопки удаления (карточка), удаляеит его
@@ -202,6 +202,6 @@ popupCloseButton.forEach(btn => {
 
 initialCards.forEach((item) => {
     const newCard = new Card(item, cardTemplate)
-    let testCardd = newCard.createCard();
+    let testCardd = newCard.addCardToEnd();
     console.log(testCardd)
 })

@@ -12,5 +12,13 @@ export default class Card {
         newCard.querySelector('.places__picture').alt = this._initialCards.name;
         return newCard
     }
+
+    addCardToEnd() {
+        let container = document.querySelector('.places__cards')
+        container.append(this.createCard());
+        return container
+    }
+
+    
 }
 
