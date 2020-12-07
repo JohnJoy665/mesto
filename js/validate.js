@@ -1,4 +1,4 @@
-
+console.log('валидейт подключен')
 
 const toggleSubmitButton = (formElement, inputList, params) => {
     buttonElement = formElement.querySelector(params.submitButtonSelector)

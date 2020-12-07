@@ -1,4 +1,43 @@
-// console.log(initialCards);
+import Card from './Card.js';
+
+
+const params = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_state_disactive',
+    inputErrorClass: 'popup__input_active_disactive',
+    errorClass: 'popup__input-error_active'
+}
+
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+  ];
+
+  // console.log(initialCards);
 
 
 
@@ -80,7 +119,7 @@ function openAddCardModal() {
 // 8 изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
 function submitformHandler(evt) {
-    // evt.preventDefault(); - перенес в validate.js
+    evt.preventDefault(); //- перенес в validate.js
     profileTitle.textContent = popupInputName.value;
     profileJob.textContent = popupInputJob.value;
     closeModal(evt.target.parentElement.parentElement)
@@ -93,16 +132,16 @@ function submitformHandler(evt) {
 // слушает, не кликнули ли по лайку
 // слушает, не кликнули ли по картинке
 // возвращает шаблон в createCard
-function createCard(name, link) {
-    const newCard = cardTemplate.cloneNode(true);
-    newCard.querySelector('.places__picture').src = link;
-    newCard.querySelector('.places__title').textContent = name;
-    newCard.querySelector('.places__picture').alt = name;
-    newCard.querySelector('.places__del-button').addEventListener('click', handleDelete);
-    newCard.querySelector('.places__like').addEventListener('click', handleLike);
-    newCard.querySelector('.places__picture').addEventListener('click', openGalaryModal);
-    return newCard;
-}
+// function createCard(name, link) {
+//     const newCard = cardTemplate.cloneNode(true);
+//     newCard.querySelector('.places__picture').src = link;
+//     newCard.querySelector('.places__title').textContent = name;
+//     newCard.querySelector('.places__picture').alt = name;
+//     newCard.querySelector('.places__del-button').addEventListener('click', handleDelete);
+//     newCard.querySelector('.places__like').addEventListener('click', handleLike);
+//     newCard.querySelector('.places__picture').addEventListener('click', openGalaryModal);
+//     return newCard;
+// }
 
 // 10 добавление карточки в конец контейнера (при первой отрисовки всех карточек из массива) 
 // принимает контейнер и созданную карточку
@@ -113,12 +152,12 @@ function addCardToEnd(container, cardElement) {
 
 // 11 добавление карточки в начало контейнера
 // создает cardElement через ф-ию
-// создает карточку вначале элемента
+// создает карточку в начале элемента
 // обнуляет значения в инпутах для послед. открытий
 // закрывает инпут
 function addCardToStart(evt) {
-    // evt.preventDefault(); - перенес в validate.js
-    cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
+    evt.preventDefault(); //- перенес в validate.js
+    // cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
     plascesCards.prepend(cardElement);
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
@@ -129,7 +168,7 @@ function addCardToStart(evt) {
 // берет массив и раскладывает на элементы
 // вызывает функцию добавления карточек в конец массива. Передает этой функции контейнер и вызывает функцию создания карточки, передав ей имя и ссылку элемента массива
 initialCards.forEach(element => {
-    addCardToEnd(plascesCards, createCard(element.name, element.link))
+    // addCardToEnd(plascesCards, createCard(element.name, element.link))
 })
 
 // 13 Удаление карточки
@@ -161,3 +200,8 @@ popupCloseButton.forEach(btn => {
 })
 
 
+initialCards.forEach((item) => {
+    const newCard = new Card(item, cardTemplate)
+    let testCardd = newCard.createCard();
+    console.log(testCardd)
+})
