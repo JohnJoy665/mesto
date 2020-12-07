@@ -109,6 +109,7 @@ function createCard(name, link) {
 // ставит карточку в конец контейнера
 function addCardToEnd(container, cardElement) {
     container.append(cardElement);
+    console.log(plascesCards);
 }
 
 // добавление карточки в начало контейнера
