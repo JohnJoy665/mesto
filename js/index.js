@@ -185,11 +185,11 @@ function addCardToStart(evt) {
 
 // 15 Открывает галерею
 // Подставляет значения из попапа в открывшееся окно
-function openGalaryModal(evt) {
-    openModal(popupGalary)
-    popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
-    popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
-}
+// function openGalaryModal(evt) {
+//     openModal(popupGalary)
+//     popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
+//     popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
+// }
 
 popupAddForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitformHandler);

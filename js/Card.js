@@ -22,6 +22,14 @@ export default class Card {
         return container
     }
 
+    openGalaryModal(evt) {
+        let popupGalary = document.querySelector('.popup_galary');
+        console.log('вот евт - ' + evt.target)
+        popupGalary.classList.add('popup_visible'); // вместо модал - evt
+        popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
+        popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
+    }
+
     handleDelete(evt) {
         console.log('handleDelete')
         evt.target.parentNode.remove();
@@ -30,8 +38,4 @@ export default class Card {
         console.log('handleLike')
         evt.target.classList.toggle('places__like_is-active');
     }
-    openGalaryModal() {
-        console.log('openGalaryModal')
-    }
 }
-
