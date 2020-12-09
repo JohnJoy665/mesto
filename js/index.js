@@ -157,7 +157,7 @@ function submitformHandler(evt) {
 // закрывает инпут
 function addCardToStart(evt) {
     evt.preventDefault(); //- перенес в validate.js
-    // cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
+    cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
     plascesCards.prepend(cardElement);
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
@@ -203,5 +203,6 @@ popupCloseButton.forEach(btn => {
 initialCards.forEach((item) => {
     const newCard = new Card(item, cardTemplate)
     let testCardd = newCard.addCardToEnd();
-    console.log(testCardd)
+    // console.log(testCardd)
 })
+

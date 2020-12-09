@@ -22,6 +22,15 @@ export default class Card {
         return container
     }
 
+    addCardToStart() {
+        evt.preventDefault(); //- перенес в validate.js
+        cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
+        plascesCards.prepend(cardElement);
+        popupAddInputTitle.value = ''
+        popupAddInputLink.value = ''
+        closeModal(evt.target.parentElement.parentElement)
+    }
+
     openGalaryModal(evt) {
         let popupGalary = document.querySelector('.popup_galary');
         console.log('вот евт - ' + evt.target)
