@@ -7,7 +7,7 @@ const toggleSubmitButton = (formElement, inputList, params) => {
     )
     // console.log(hasInvalidInput)
     if (hasInvalidInput) {
-        buttonElement.classList.add(params.inactiveButtonClass)
+        buttonElement.classList.add(params.inactiveButtonClass)evt.preventDefault
         buttonElement.setAttribute("disabled", "true");
     } else {
         buttonElement.classList.remove(params.inactiveButtonClass)
