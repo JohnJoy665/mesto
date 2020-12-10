@@ -74,6 +74,7 @@ function clodeOnEsc(evt) {
 
 //2 навешивает слушатель на кнопку
 function setEscListener() {
+    console.log('повесили слушателя на эск')
     addEventListener("keydown", clodeOnEsc);
 }
 
@@ -193,6 +194,12 @@ function addCardToStart(evt) {
 //     popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
 // }
 
+const openGalaryModal = (element) => {
+    openModal(popupGalary)
+    popupGalary.querySelector('.popup__full-size-img').src = element.querySelector('.places__picture').getAttribute('src')
+    popupGalary.querySelector('.popup__title_galary').textContent = element.querySelector('.places__title').textContent
+}
+
 popupAddForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitformHandler);
 profileEditButton.addEventListener('click', openProfileModal);
@@ -203,7 +210,7 @@ popupCloseButton.forEach(btn => {
 
 
 initialCards.forEach((item) => {
-    const newCard = new Card(item.name, item.link, '#card')
+    const newCard = new Card(item.name, item.link, '#card', openGalaryModal)
     let nextCard = newCard.generateCard();
     plascesCards.append(nextCard);
 })
