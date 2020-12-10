@@ -1,50 +1,41 @@
 export default class Card {
 
-    constructor(initialCards, cardTemplate) {
-        this._initialCards = initialCards;
-        this._cardTemplate = cardTemplate;
+    constructor(name, link, cardSelector) {
+        this._name = name;
+        this._link = link;
+        this._cardSelector = cardSelector;
     }
 
-    createCard() {
-        const newCard = this._cardTemplate.cloneNode(true);
-        newCard.querySelector('.places__picture').src = this._initialCards.link;
-        newCard.querySelector('.places__title').textContent = this._initialCards.name;
-        newCard.querySelector('.places__picture').alt = this._initialCards.name;
-        newCard.querySelector('.places__del-button').addEventListener('click', this.handleDelete);
-        newCard.querySelector('.places__like').addEventListener('click', this.handleLike);
-        newCard.querySelector('.places__picture').addEventListener('click', this.openGalaryModal);
-        return newCard
+    _getTemplate() {
+        const cardElement = document.querySelector(this._cardSelector)
+        .content.querySelector('.places__card')
+        .cloneNode(true);
+        return cardElement
     }
 
-    addCardToEnd() {
-        let container = document.querySelector('.places__cards')
-        container.append(this.createCard());
-        return container
+    generateCard() {
+        this._element = this._getTemplate();
+        this._element.querySelector('.places__picture').src = this._link;
+        this._element.querySelector('.places__title').textContent = this._name;
+        this._element.querySelector('.places__picture').alt = this._name;
+        this._element.querySelector('.places__del-button').addEventListener('click', this._handleDelete);
+        this._element.querySelector('.places__like').addEventListener('click', this._handleLike);
+        this._element.querySelector('.places__picture').addEventListener('click', this._openGalaryModal);
+        console.log(this._element)
+        return this._element
     }
 
-    addCardToStart() {
-        evt.preventDefault(); //- перенес в validate.js
-        cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
-        plascesCards.prepend(cardElement);
-        popupAddInputTitle.value = ''
-        popupAddInputLink.value = ''
-        closeModal(evt.target.parentElement.parentElement)
-    }
-
-    openGalaryModal(evt) {
+    _openGalaryModal(evt) {
         let popupGalary = document.querySelector('.popup_galary');
-        console.log('вот евт - ' + evt.target)
-        popupGalary.classList.add('popup_visible'); // вместо модал - evt
+        popupGalary.classList.add('popup_visible');
         popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
         popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
     }
 
-    handleDelete(evt) {
-        console.log('handleDelete')
+    _handleDelete(evt) {
         evt.target.parentNode.remove();
     }
-    handleLike(evt) {
-        console.log('handleLike')
+    _handleLike(evt) {
         evt.target.classList.toggle('places__like_is-active');
     }
 }

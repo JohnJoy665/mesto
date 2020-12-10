@@ -55,7 +55,7 @@ const profileTitle = profileInfo.querySelector('.profile__title');
 const profileJob = profileInfo.querySelector('.profile__job');
 const popupCloseButton = document.querySelectorAll('.popup__close-button')
 const popupProfileForm = popupFormProfile.querySelector('.popup__form')
-const cardTemplate = document.querySelector('#card').content;
+// const cardTemplate = document.querySelector('#card').content;
 const plascesCards = document.querySelector('.places__cards');
 const popupGalary = document.querySelector('.popup_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
@@ -157,8 +157,10 @@ function submitformHandler(evt) {
 // закрывает инпут
 function addCardToStart(evt) {
     evt.preventDefault(); //- перенес в validate.js
-    cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
-    plascesCards.prepend(cardElement);
+    const newCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card')
+    plascesCards.prepend(newCard.generateCard());
+    // cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
+    // plascesCards.prepend(cardElement);
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
     closeModal(evt.target.parentElement.parentElement)
@@ -201,8 +203,8 @@ popupCloseButton.forEach(btn => {
 
 
 initialCards.forEach((item) => {
-    const newCard = new Card(item, cardTemplate)
-    let testCardd = newCard.addCardToEnd();
-    // console.log(testCardd)
+    const newCard = new Card(item.name, item.link, '#card')
+    let nextCard = newCard.generateCard();
+    plascesCards.append(nextCard);
 })
 
