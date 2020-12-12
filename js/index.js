@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 
 const params = {
@@ -37,7 +38,6 @@ const initialCards = [
     }
   ];
 
-  // console.log(initialCards);
 
 
 
@@ -74,7 +74,6 @@ function clodeOnEsc(evt) {
 
 //2 навешивает слушатель на кнопку
 function setEscListener() {
-    console.log('повесили слушателя на эск')
     addEventListener("keydown", clodeOnEsc);
 }
 
@@ -215,3 +214,9 @@ initialCards.forEach((item) => {
     plascesCards.append(nextCard);
 })
 
+
+const validateProfileForm = new FormValidator(params, '.popup__form_profile');
+validateProfileForm.enableValidation()
+
+const validateAddForm = new FormValidator(params, '.popup__form_add');
+validateAddForm.enableValidation()
