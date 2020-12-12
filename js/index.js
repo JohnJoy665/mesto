@@ -1,7 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-
 const params = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -39,8 +38,6 @@ const initialCards = [
   ];
 
 
-
-
 const profile = document.querySelector('.profile');
 const popup = document.querySelector('.popup');
 const popupAddCard = document.querySelector('.popup_add-card');
@@ -55,7 +52,6 @@ const profileTitle = profileInfo.querySelector('.profile__title');
 const profileJob = profileInfo.querySelector('.profile__job');
 const popupCloseButton = document.querySelectorAll('.popup__close-button')
 const popupProfileForm = popupFormProfile.querySelector('.popup__form')
-// const cardTemplate = document.querySelector('#card').content;
 const plascesCards = document.querySelector('.places__cards');
 const popupGalary = document.querySelector('.popup_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
@@ -115,7 +111,6 @@ function openAddCardModal() {
     openModal(popupAddCard)
 }
 
-
 // 8 изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
 function submitformHandler(evt) {
@@ -125,73 +120,19 @@ function submitformHandler(evt) {
     closeModal(evt.target.parentElement.parentElement)
 }
 
-
-// 9 создание карточки
-// создает шаблон и записывает с помощью name и link соответствующие параметры в шаблон
-// слушает, не кликнули ли по удалению
-// слушает, не кликнули ли по лайку
-// слушает, не кликнули ли по картинке
-// возвращает шаблон в createCard
-// function createCard(name, link) {
-//     const newCard = cardTemplate.cloneNode(true);
-//     newCard.querySelector('.places__picture').src = link;
-//     newCard.querySelector('.places__title').textContent = name;
-//     newCard.querySelector('.places__picture').alt = name;
-//     newCard.querySelector('.places__del-button').addEventListener('click', handleDelete);
-//     newCard.querySelector('.places__like').addEventListener('click', handleLike);
-//     newCard.querySelector('.places__picture').addEventListener('click', openGalaryModal);
-//     return newCard;
-// }
-
-// 10 добавление карточки в конец контейнера (при первой отрисовки всех карточек из массива) 
-// принимает контейнер и созданную карточку
-// ставит карточку в конец контейнера
-// function addCardToEnd(container, cardElement) {
-//     container.append(cardElement);
-// }
-
 // 11 добавление карточки в начало контейнера
-// создает cardElement через ф-ию
-// создает карточку в начале элемента
+// отправляет классу значения инпутов и селектор
+// подставляет сформированный экземпляр класса в конец контейнера
 // обнуляет значения в инпутах для послед. открытий
 // закрывает инпут
 function addCardToStart(evt) {
     evt.preventDefault(); //- перенес в validate.js
-    const newCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card')
-    plascesCards.prepend(newCard.generateCard());
-    // cardElement = createCard(popupAddInputTitle.value, popupAddInputLink.value)
-    // plascesCards.prepend(cardElement);
+    const newAddCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card')
+    plascesCards.prepend(newAddCard.generateCard());
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
     closeModal(evt.target.parentElement.parentElement)
 }
-
-// 12 Отрисовка всех карточек
-// берет массив и раскладывает на элементы
-// вызывает функцию добавления карточек в конец массива. Передает этой функции контейнер и вызывает функцию создания карточки, передав ей имя и ссылку элемента массива
-// initialCards.forEach(element => {
-//     // addCardToEnd(plascesCards, createCard(element.name, element.link))
-// })
-
-// 13 Удаление карточки
-// определяет родительский элемент для кнопки удаления (карточка), удаляеит его
-// function handleDelete(evt) {
-//     evt.target.parentNode.remove();
-// }
-
-// 14 Проставление лайка
-// меняет класс у лайка
-// function handleLike(evt) {
-//     evt.target.classList.toggle('places__like_is-active');
-// }
-
-// 15 Открывает галерею
-// Подставляет значения из попапа в открывшееся окно
-// function openGalaryModal(evt) {
-//     openModal(popupGalary)
-//     popupGalary.querySelector('.popup__full-size-img').src = evt.target.getAttribute('src')
-//     popupGalary.querySelector('.popup__title_galary').textContent = evt.target.parentElement.querySelector('.places__title').textContent
-// }
 
 const openGalaryModal = (element) => {
     openModal(popupGalary)
@@ -207,7 +148,7 @@ popupCloseButton.forEach(btn => {
     btn.addEventListener('click', () => closeModal(btn.closest('.popup')))
 })
 
-
+// Отрисовка всех карточек в классе
 initialCards.forEach((item) => {
     const newCard = new Card(item.name, item.link, '#card', openGalaryModal)
     let nextCard = newCard.generateCard();

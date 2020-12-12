@@ -1,13 +1,12 @@
 // const validate = new FormValidator(params, '.popup__submit-button');
 export default class FormValidator {
-    constructor(params, formElement2) {
-        this._formSelector = params.formSelector; //'.popup__form',
+    constructor(params, formSelector) {
         this._inputSelector = params.inputSelector;//'.popup__input',
         this._submitButtonSelector = params.submitButtonSelector; //'.popup__submit-button',
         this._inactiveButtonClass = params.inactiveButtonClass; //'popup__submit-button_state_disactive',
         this._inputErrorClass = params.inputErrorClass; //'popup__input_active_disactive',
         this._errorClass = params.errorClass; //'popup__input-error_active'
-        this._formElement2 = formElement2;
+        this._formSelector = formSelector;
     }
 
     _toggleSubmitButton(formElement, inputList) {
@@ -33,7 +32,7 @@ export default class FormValidator {
         errorElem.classList.add(this._errorClass)
         inputElement.classList.add(this._inputErrorClass)
     };
-    _hideInputError(formElement, inputElement, params) {
+    _hideInputError(formElement, inputElement) {
         const errorElem = formElement.querySelector(`#${inputElement.id}-error`)
         errorElem.textContent = "";
         errorElem.classList.remove(this._errorClass)
@@ -44,7 +43,7 @@ export default class FormValidator {
     // проверяем признак валидации:
     // если валидна - передаем инпут
     // если не валидна - передаем инпут и сообщение
-    _checkInputValidity(formElement, inputElement, params) {
+    _checkInputValidity(formElement, inputElement) {
         const isInputNotValid = !inputElement.validity.valid;
 
         if (isInputNotValid) {
@@ -70,24 +69,11 @@ export default class FormValidator {
         this._toggleSubmitButton(formElement, inputList);
     }
 
-    // находим все формы
-    // создаем из них массив и в каждой форме отменяем сабмит
+    // находим форму по селектору
+    // получаем дом элемент
     // вызываем слушателя события и передаем ему форму
-    // enableValidation() {
-    //     const formList = Array.from(document.querySelectorAll(this._formSelector));
-
-    //     formList.forEach((formElement) => {
-    //         console.log(formElement)
-    //         formElement.addEventListener('submit', (event) => {
-    //             event.preventDefault()
-    //         });
-    //         this._setEventListeners(formElement)
-    //     });
-    // }
-
     enableValidation () {
-        const domElement = document.querySelector(this._formElement2);
-        console.log(domElement)
+        const domElement = document.querySelector(this._formSelector);
         domElement.addEventListener('submit', (event) => {
             event.preventDefault()
         });

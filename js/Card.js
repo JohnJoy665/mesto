@@ -43,7 +43,4 @@ export default class Card {
     _handleLike() {
         this._element.querySelector('.places__like').classList.toggle('places__like_is-active');
     }
-
-    // метод, навешивающий слушателя на кнопку
-    _setEventListenersEsc
 }
