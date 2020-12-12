@@ -19,15 +19,15 @@
 }
 
 .profile__add-button::after { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0; 
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgb(0, 0, 0);
     box-shadow: 0 0 0 2px rgb(0, 0, 0);
-    opacity: 0; 
+    opacity: 0;
     }
 
     .profile__add-button:hover::after { 
