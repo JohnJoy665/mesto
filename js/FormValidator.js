@@ -17,6 +17,7 @@ export default class FormValidator {
 
 
         if (hasInvalidInput) {
+            console.log(hasInvalidInput)
             buttonElement.classList.add(this._inactiveButtonClass)
             buttonElement.setAttribute("disabled", "true");
         } else {
