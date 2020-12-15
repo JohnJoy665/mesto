@@ -17,7 +17,6 @@ export default class FormValidator {
 
 
         if (hasInvalidInput) {
-            console.log(hasInvalidInput)
             buttonElement.classList.add(this._inactiveButtonClass)
             buttonElement.setAttribute("disabled", "true");
         } else {
@@ -46,7 +45,10 @@ export default class FormValidator {
     // если не валидна - передаем инпут и сообщение
     _checkInputValidity(formElement, inputElement) {
         const isInputNotValid = !inputElement.validity.valid;
-
+        console.log('чекнули инпуты')
+        console.log(formElement)
+        console.log(inputElement)
+        console.log(isInputNotValid)
         if (isInputNotValid) {
             const errorMessage = inputElement.validationMessage;
             this._showInputError(formElement, inputElement, errorMessage)
@@ -68,12 +70,14 @@ export default class FormValidator {
             })
         })
         this._toggleSubmitButton(formElement, inputList);
+        // this._checkInputValidity(formElement, inputElement);
     }
 
     // находим форму по селектору
     // получаем дом элемент
     // вызываем слушателя события и передаем ему форму
     enableValidation () {
+        console.log('провели валидацию')
         const domElement = document.querySelector(this._formSelector);
         domElement.addEventListener('submit', (event) => {
             event.preventDefault()

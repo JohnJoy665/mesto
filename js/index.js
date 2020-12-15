@@ -101,8 +101,8 @@ function closeModal(modal) {
 
 // 6 Вписывание при открытие в инпуты текста из карточки
 function openProfileModal() {
-    const validateProfileForm = new FormValidator(params, '.popup__form_profile');
-    validateProfileForm.enableValidation()
+    // const validateProfileForm = new FormValidator(params, '.popup__form_profile');
+    // validateProfileForm.enableValidation()
     popupInputName.value = profileTitle.textContent
     popupInputJob.value = profileJob.textContent
     openModal(popupFormProfile)
@@ -110,8 +110,8 @@ function openProfileModal() {
 
 // 7 Открытие карточки для добавления картинок
 function openAddCardModal() {
-    const validateAddForm = new FormValidator(params, '.popup__form_add');
-    validateAddForm.enableValidation()
+    // const validateAddForm = new FormValidator(params, '.popup__form_add');
+    // validateAddForm.enableValidation()
     openModal(popupAddCard)
 }
 
@@ -160,8 +160,8 @@ initialCards.forEach((item) => {
 })
 
 
-// const validateProfileForm = new FormValidator(params, '.popup__form_profile');
-// validateProfileForm.enableValidation()
+const validateProfileForm = new FormValidator(params, '.popup__form_profile');
+validateProfileForm.enableValidation()
+const validateAddForm = new FormValidator(params, '.popup__form_add');
+validateAddForm.enableValidation()
 
-// const validateAddForm = new FormValidator(params, '.popup__form_add');
-// validateAddForm.enableValidation()
