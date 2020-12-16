@@ -10,6 +10,8 @@ const params = {
     errorClass: 'popup__input-error_active'
 }
 
+const keyEscape = 27;
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -57,12 +59,15 @@ const popupGalary = document.querySelector('.popup_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
 
+function createCard(name, link, cardSelector, openGalaryModal) {
+    return new Card(name, link, cardSelector, openGalaryModal)
+}
 
 //1 проверяет, кликнул ли человек esc
 // если да - закрываем
 function clodeOnEsc(evt) {
     const modal = document.querySelector('.popup_visible')
-    if (evt.keyCode == 27) {
+    if (evt.keyCode === keyEscape) {
         closeModal(modal);
         
     }
@@ -97,6 +102,7 @@ function openModal(modal) {
 function closeModal(modal) {
     modal.classList.remove('popup_visible')
     removeEventListener("keydown", clodeOnEsc);
+    modal.removeEventListener('mousedown', checkOverlay)
 }
 
 // 6 Вписывание при открытие в инпуты текста из карточки
@@ -131,8 +137,10 @@ function submitformHandler(evt) {
 // закрывает инпут
 function addCardToStart(evt) {
     evt.preventDefault(); //- перенес в validate.js
-    const newAddCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
-    plascesCards.prepend(newAddCard.generateCard());
+    // const newAddCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
+    let n = createCard(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
+    // plascesCards.prepend(newAddCard.generateCard());
+    plascesCards.prepend(n.generateCard());
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
     closeModal(evt.target.parentElement.parentElement)
@@ -164,4 +172,6 @@ const validateProfileForm = new FormValidator(params, '.popup__form_profile');
 validateProfileForm.enableValidation()
 const validateAddForm = new FormValidator(params, '.popup__form_add');
 validateAddForm.enableValidation()
+
+
 
