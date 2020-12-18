@@ -14,30 +14,30 @@ const keyEscape = 27;
 
 const initialCards = [
     {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
     {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
     },
     {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
     },
     {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-  ];
+];
 
 
 const profile = document.querySelector('.profile');
@@ -56,13 +56,28 @@ const popupCloseButton = document.querySelectorAll('.popup__close-button')
 const popupProfileForm = popupFormProfile.querySelector('.popup__form')
 const plascesCards = document.querySelector('.places__cards');
 const popupGalary = document.querySelector('.popup_galary');
-
-
 const fullSizeImg = popupGalary.querySelector('.popup__full-size-img');
 const titleGalary = popupGalary.querySelector('.popup__title_galary');
-
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
+
+
+
+
+function resertForm(formElement) {
+    const form = formElement.querySelector('.popup__form')
+    if (form) {
+        const inputList = form.querySelectorAll('.popup__input')
+        const submitButton = form.querySelector('.popup__submit-button')
+        inputList.forEach(input => {
+            input.value = ''
+            input.classList.remove('popup__input_active_disactive')
+            input.nextSibling.nextSibling.classList.remove('popup__input-error_active')
+        })
+        submitButton.classList.add('popup__submit-button_state_disactive')
+        submitButton.setAttribute("disabled", "true");
+    }
+}
 
 function createCard(name, link, cardSelector, openGalaryModal) {
     return new Card(name, link, cardSelector, openGalaryModal)
@@ -74,7 +89,7 @@ function clodeOnEsc(evt) {
     const modal = document.querySelector('.popup_visible')
     if (evt.keyCode === keyEscape) {
         closeModal(modal);
-        
+
     }
 }
 
@@ -105,6 +120,7 @@ function openModal(modal) {
 }
 
 function closeModal(modal) {
+    resertForm(modal)
     modal.classList.remove('popup_visible')
     removeEventListener("keydown", clodeOnEsc);
     modal.removeEventListener('mousedown', checkOverlay)
@@ -112,8 +128,6 @@ function closeModal(modal) {
 
 // 6 Вписывание при открытие в инпуты текста из карточки
 function openProfileModal() {
-    // const validateProfileForm = new FormValidator(params, '.popup__form_profile');
-    // validateProfileForm.enableValidation()
     popupInputName.value = profileTitle.textContent
     popupInputJob.value = profileJob.textContent
     openModal(popupFormProfile)
@@ -127,7 +141,7 @@ function openAddCardModal() {
 // 8 изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
 function submitformHandler(evt) {
-    evt.preventDefault(); //- перенес в validate.js
+    evt.preventDefault();
     profileTitle.textContent = popupInputName.value;
     profileJob.textContent = popupInputJob.value;
     closeModal(evt.target.parentElement.parentElement)
@@ -139,10 +153,8 @@ function submitformHandler(evt) {
 // обнуляет значения в инпутах для послед. открытий
 // закрывает инпут
 function addCardToStart(evt) {
-    evt.preventDefault(); //- перенес в validate.js
-    // const newAddCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
+    evt.preventDefault();
     const newCard = createCard(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
-    // plascesCards.prepend(newAddCard.generateCard());
     plascesCards.prepend(newCard.generateCard());
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
@@ -167,7 +179,6 @@ popupCloseButton.forEach(btn => {
 // Отрисовка всех карточек в классе
 initialCards.forEach((item) => {
     const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
-    // const newCard = new Card(item.name, item.link, '#card', openGalaryModal)
     let nextCard = newCard.generateCard();
     plascesCards.append(nextCard);
 })
