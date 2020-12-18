@@ -9,11 +9,11 @@ export default class FormValidator {
         this._formSelector = formSelector;
     }
 
-    resetValidation () {
-        console.log('сброс инпутов и кнопки')
-        console.log(this._inputSelector);
-        console.log(this._errorClass)
-        console.log(this._submitButtonSelector)
+    resetValidation(popup) {
+        // const inputList = popup.querySelectorAll(this._inputSelector);
+        // inputList.forEach((inputElement) => {
+        //     inputElement.value = ''
+        // })
     }
 
     _toggleSubmitButton(formElement, inputList) {
@@ -83,8 +83,8 @@ export default class FormValidator {
     // находим форму по селектору
     // получаем дом элемент
     // вызываем слушателя события и передаем ему форму
-    enableValidation () {
-        // console.log('провели валидацию')
+    enableValidation() {
+        console.log('провели валидацию')
         const domElement = document.querySelector(this._formSelector);
         domElement.addEventListener('submit', (event) => {
             event.preventDefault()
