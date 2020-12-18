@@ -9,12 +9,18 @@ export default class FormValidator {
         this._formSelector = formSelector;
     }
 
+    resetValidation () {
+        console.log('сброс инпутов и кнопки')
+        console.log(this._inputSelector);
+        console.log(this._errorClass)
+        console.log(this._submitButtonSelector)
+    }
+
     _toggleSubmitButton(formElement, inputList) {
         const buttonElement = formElement.querySelector(this._submitButtonSelector)
         const hasInvalidInput = inputList.some(
             (elem) => !elem.validity.valid
         )
-
 
         if (hasInvalidInput) {
             buttonElement.classList.add(this._inactiveButtonClass)
@@ -45,10 +51,10 @@ export default class FormValidator {
     // если не валидна - передаем инпут и сообщение
     _checkInputValidity(formElement, inputElement) {
         const isInputNotValid = !inputElement.validity.valid;
-        console.log('чекнули инпуты')
-        console.log(formElement)
-        console.log(inputElement)
-        console.log(isInputNotValid)
+        // console.log('чекнули инпуты')
+        // console.log(formElement)
+        // console.log(inputElement)
+        // console.log(isInputNotValid)
         if (isInputNotValid) {
             const errorMessage = inputElement.validationMessage;
             this._showInputError(formElement, inputElement, errorMessage)
@@ -69,6 +75,7 @@ export default class FormValidator {
                 this._toggleSubmitButton(formElement, inputList);
             })
         })
+        // console.log('вот тут сейчас')
         this._toggleSubmitButton(formElement, inputList);
         // this._checkInputValidity(formElement, inputElement);
     }
@@ -77,7 +84,7 @@ export default class FormValidator {
     // получаем дом элемент
     // вызываем слушателя события и передаем ему форму
     enableValidation () {
-        console.log('провели валидацию')
+        // console.log('провели валидацию')
         const domElement = document.querySelector(this._formSelector);
         domElement.addEventListener('submit', (event) => {
             event.preventDefault()

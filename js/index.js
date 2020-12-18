@@ -56,6 +56,11 @@ const popupCloseButton = document.querySelectorAll('.popup__close-button')
 const popupProfileForm = popupFormProfile.querySelector('.popup__form')
 const plascesCards = document.querySelector('.places__cards');
 const popupGalary = document.querySelector('.popup_galary');
+
+
+const fullSizeImg = popupGalary.querySelector('.popup__full-size-img');
+const titleGalary = popupGalary.querySelector('.popup__title_galary');
+
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
 
@@ -116,8 +121,6 @@ function openProfileModal() {
 
 // 7 Открытие карточки для добавления картинок
 function openAddCardModal() {
-    // const validateAddForm = new FormValidator(params, '.popup__form_add');
-    // validateAddForm.enableValidation()
     openModal(popupAddCard)
 }
 
@@ -138,9 +141,9 @@ function submitformHandler(evt) {
 function addCardToStart(evt) {
     evt.preventDefault(); //- перенес в validate.js
     // const newAddCard = new Card(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
-    let n = createCard(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
+    const newCard = createCard(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
     // plascesCards.prepend(newAddCard.generateCard());
-    plascesCards.prepend(n.generateCard());
+    plascesCards.prepend(newCard.generateCard());
     popupAddInputTitle.value = ''
     popupAddInputLink.value = ''
     closeModal(evt.target.parentElement.parentElement)
@@ -148,8 +151,9 @@ function addCardToStart(evt) {
 
 const openGalaryModal = (element) => {
     openModal(popupGalary)
-    popupGalary.querySelector('.popup__full-size-img').src = element.querySelector('.places__picture').getAttribute('src')
-    popupGalary.querySelector('.popup__title_galary').textContent = element.querySelector('.places__title').textContent
+    fullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
+    fullSizeImg.alt = element.querySelector('.places__title').textContent
+    titleGalary.textContent = element.querySelector('.places__title').textContent
 }
 
 popupAddForm.addEventListener('submit', addCardToStart)
@@ -162,7 +166,8 @@ popupCloseButton.forEach(btn => {
 
 // Отрисовка всех карточек в классе
 initialCards.forEach((item) => {
-    const newCard = new Card(item.name, item.link, '#card', openGalaryModal)
+    const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
+    // const newCard = new Card(item.name, item.link, '#card', openGalaryModal)
     let nextCard = newCard.generateCard();
     plascesCards.append(nextCard);
 })
