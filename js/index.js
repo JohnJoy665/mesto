@@ -1,7 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-const params = {
+const validationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__submit-button',
@@ -61,7 +61,7 @@ const titleGalary = popupGalary.querySelector('.popup__title_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
 const popupFormProf = document.querySelector('.popup__form_profile')
-const PopupFormAdd = document.querySelector('.popup__form_add')
+const popupFormAdd = document.querySelector('.popup__form_add')
 
 
 
@@ -146,7 +146,7 @@ function openAddCardModal() {
 
 // 8 изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
-function submitformHandler(evt) {
+function submitEditUserProfileForm(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupInputName.value;
     profileJob.textContent = popupInputJob.value;
@@ -175,7 +175,7 @@ const openGalaryModal = (element) => {
 }
 
 popupAddForm.addEventListener('submit', addCardToStart)
-popupProfileForm.addEventListener('submit', submitformHandler);
+popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
 profileEditButton.addEventListener('click', openProfileModal);
 profileAddButton.addEventListener('click', openAddCardModal);
 popupCloseButton.forEach(btn => {
@@ -190,9 +190,9 @@ initialCards.forEach((item) => {
 })
 
 
-const validateProfileForm = new FormValidator(params, popupFormProf);
+const validateProfileForm = new FormValidator(validationConfig, popupFormProf);
 validateProfileForm.enableValidation()
-const validateAddForm = new FormValidator(params, PopupFormAdd);
+const validateAddForm = new FormValidator(validationConfig, popupFormAdd);
 validateAddForm.enableValidation()
 
 
