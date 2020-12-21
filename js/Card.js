@@ -19,9 +19,10 @@ export default class Card {
     // наполняет шаблон данными. Навешивает слушателей
     generateCard() {
         this._element = this._getTemplate();
-        this._element.querySelector('.places__picture').src = this._link;
+        this._elementPicture = this._element.querySelector('.places__picture');
+        this._elementPicture.src = this._link;
         this._element.querySelector('.places__title').textContent = this._name;
-        this._element.querySelector('.places__picture').alt = this._name;
+        this._elementPicture.alt = this._name;
         this._setListeners();
         return this._element
     }
@@ -29,7 +30,7 @@ export default class Card {
     _setListeners() {
         this._element.querySelector('.places__del-button').addEventListener('click', () => this._handleDelete());
         this._element.querySelector('.places__like').addEventListener('click', () => this._handleLike());
-        this._element.querySelector('.places__picture').addEventListener('click', () => this._openGalary());
+        this._elementPicture.addEventListener('click', () => this._openGalary());
     }
 
     _openGalary() {

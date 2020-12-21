@@ -60,6 +60,8 @@ const fullSizeImg = popupGalary.querySelector('.popup__full-size-img');
 const titleGalary = popupGalary.querySelector('.popup__title_galary');
 const popupInputName = popup.querySelector('.popup__input_name');
 const popupInputJob = popup.querySelector('.popup__input_job');
+const popupFormProf = document.querySelector('.popup__form_profile')
+const PopupFormAdd = document.querySelector('.popup__form_add')
 
 
 
@@ -85,8 +87,11 @@ function createCard(name, link, cardSelector, openGalaryModal) {
 
 //1 проверяет, кликнул ли человек esc
 // если да - закрываем
-function clodeOnEsc(evt) {
+function closeOnEsc(evt) {
+    console.log(evt.target)
+    console.log(evt.keyCode)
     const modal = document.querySelector('.popup_visible')
+
     if (evt.keyCode === keyEscape) {
         closeModal(modal);
 
@@ -94,13 +99,14 @@ function clodeOnEsc(evt) {
 }
 
 //2 навешивает слушатель на кнопку
-function setEscListener() {
-    addEventListener("keydown", clodeOnEsc);
+const setEscListener = () => {
+    document.addEventListener("keydown", closeOnEsc);
 }
 
 //3 проверяет, кликнул ли человек по попапу или мимо
 // если мимо - закрываем
 function checkOverlay(evt) {
+    // console.log(evt.target)
     if (evt.target.classList.contains('popup_visible')) {
         closeModal(evt.target)
     }
@@ -116,13 +122,13 @@ const setOverlayListener = (modal) => {
 function openModal(modal) {
     modal.classList.add('popup_visible');
     setOverlayListener(modal);
-    setEscListener();
+    setEscListener(modal);
 }
 
 function closeModal(modal) {
     resertForm(modal)
     modal.classList.remove('popup_visible')
-    removeEventListener("keydown", clodeOnEsc);
+    document.removeEventListener("keydown", closeOnEsc);
     modal.removeEventListener('mousedown', checkOverlay)
 }
 
@@ -184,9 +190,9 @@ initialCards.forEach((item) => {
 })
 
 
-const validateProfileForm = new FormValidator(params, '.popup__form_profile');
+const validateProfileForm = new FormValidator(params, popupFormProf);
 validateProfileForm.enableValidation()
-const validateAddForm = new FormValidator(params, '.popup__form_add');
+const validateAddForm = new FormValidator(params, PopupFormAdd);
 validateAddForm.enableValidation()
 
 

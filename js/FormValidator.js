@@ -9,13 +9,6 @@ export default class FormValidator {
         this._formSelector = formSelector;
     }
 
-    resetValidation () {
-        console.log('сброс инпутов и кнопки')
-        console.log(this._inputSelector);
-        console.log(this._errorClass)
-        console.log(this._submitButtonSelector)
-    }
-
     _toggleSubmitButton(formElement, inputList) {
         const buttonElement = formElement.querySelector(this._submitButtonSelector)
         const hasInvalidInput = inputList.some(
@@ -84,12 +77,10 @@ export default class FormValidator {
     // получаем дом элемент
     // вызываем слушателя события и передаем ему форму
     enableValidation () {
-        // console.log('провели валидацию')
-        const domElement = document.querySelector(this._formSelector);
-        domElement.addEventListener('submit', (event) => {
+        this._formSelector.addEventListener('submit', (event) => {
             event.preventDefault()
         });
-        this._setEventListeners(domElement)
+        this._setEventListeners(this._formSelector)
     }
 
 }
