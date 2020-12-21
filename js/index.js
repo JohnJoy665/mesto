@@ -66,20 +66,6 @@ const popupFormAdd = document.querySelector('.popup__form_add')
 
 
 
-function resertForm(formElement) {
-    const form = formElement.querySelector('.popup__form')
-    if (form) {
-        const inputList = form.querySelectorAll('.popup__input')
-        const submitButton = form.querySelector('.popup__submit-button')
-        inputList.forEach(input => {
-            input.value = ''
-            input.classList.remove('popup__input_active_disactive')
-            input.nextSibling.nextSibling.classList.remove('popup__input-error_active')
-        })
-        submitButton.classList.add('popup__submit-button_state_disactive')
-        submitButton.setAttribute("disabled", "true");
-    }
-}
 
 function createCard(name, link, cardSelector, openGalaryModal) {
     return new Card(name, link, cardSelector, openGalaryModal)
@@ -88,8 +74,6 @@ function createCard(name, link, cardSelector, openGalaryModal) {
 //1 проверяет, кликнул ли человек esc
 // если да - закрываем
 function closeOnEsc(evt) {
-    console.log(evt.target)
-    console.log(evt.keyCode)
     const modal = document.querySelector('.popup_visible')
 
     if (evt.keyCode === keyEscape) {
@@ -126,21 +110,22 @@ function openModal(modal) {
 }
 
 function closeModal(modal) {
-    resertForm(modal)
     modal.classList.remove('popup_visible')
     document.removeEventListener("keydown", closeOnEsc);
     modal.removeEventListener('mousedown', checkOverlay)
 }
 
-// 6 Вписывание при открытие в инпуты текста из карточки
+// 6 Открытие попапа для изменения профиля
 function openProfileModal() {
+    validateProfileForm.resertForm()
     popupInputName.value = profileTitle.textContent
     popupInputJob.value = profileJob.textContent
     openModal(popupFormProfile)
 }
 
-// 7 Открытие карточки для добавления картинок
+// 7 Открытие попапа для добавление карточек
 function openAddCardModal() {
+    validateAddForm.resertForm()
     openModal(popupAddCard)
 }
 

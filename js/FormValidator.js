@@ -9,6 +9,18 @@ export default class FormValidator {
         this._formSelector = formSelector;
     }
 
+    resertForm() {
+        const inputList = this._formSelector.querySelectorAll(this._inputSelector)
+        const submitButton = this._formSelector.querySelector(this._submitButtonSelector)
+        inputList.forEach(input => {
+            input.value = ''
+            input.classList.remove(this._inputErrorClass)
+            input.nextSibling.nextSibling.classList.remove(this._errorClass)
+        })
+        submitButton.classList.add(this._inactiveButtonClass)
+        submitButton.setAttribute("disabled", "true");
+}
+
     _toggleSubmitButton(formElement, inputList) {
         const buttonElement = formElement.querySelector(this._submitButtonSelector)
         const hasInvalidInput = inputList.some(
@@ -44,10 +56,6 @@ export default class FormValidator {
     // если не валидна - передаем инпут и сообщение
     _checkInputValidity(formElement, inputElement) {
         const isInputNotValid = !inputElement.validity.valid;
-        // console.log('чекнули инпуты')
-        // console.log(formElement)
-        // console.log(inputElement)
-        // console.log(isInputNotValid)
         if (isInputNotValid) {
             const errorMessage = inputElement.validationMessage;
             this._showInputError(formElement, inputElement, errorMessage)
@@ -68,7 +76,6 @@ export default class FormValidator {
                 this._toggleSubmitButton(formElement, inputList);
             })
         })
-        // console.log('вот тут сейчас')
         this._toggleSubmitButton(formElement, inputList);
         // this._checkInputValidity(formElement, inputElement);
     }
