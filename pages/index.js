@@ -1,6 +1,8 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js'
+import Popup from '../components/Popup.js'
+
 import {
     validationConfig,
     keyEscape,
@@ -29,14 +31,14 @@ import {
 
 //1 проверяет, кликнул ли человек esc
 // если да - закрываем
-function closeOnEsc(evt) {
-    const modal = document.querySelector('.popup_visible')
+// function closeOnEsc(evt) {
+//     const modal = document.querySelector('.popup_visible')
 
-    if (evt.keyCode === keyEscape) {
-        closeModal(modal);
+//     if (evt.keyCode === keyEscape) {
+//         closeModal(modal);
 
-    }
-}
+//     }
+// }
 
 //2 навешивает слушатель на кнопку
 const setEscListener = () => {
@@ -59,11 +61,11 @@ const setOverlayListener = (modal) => {
 }
 
 //5 Открываем ПопАп
-function openModal(modal) {
-    modal.classList.add('popup_visible');
-    setOverlayListener(modal);
-    setEscListener(modal);
-}
+// function openModal(modal) {
+//     modal.classList.add('popup_visible');
+//     setOverlayListener(modal);
+//     setEscListener(modal);
+// }
 
 function closeModal(modal) {
     modal.classList.remove('popup_visible')
@@ -154,3 +156,14 @@ const cardList = new Section({
 }, placesCards)
 
 cardList.renderCards()
+
+
+
+const openTest = new Popup(popupAddCard);
+
+openTest.open()
+
+
+// popupProfile
+// popupAddCard
+// popupGalary
