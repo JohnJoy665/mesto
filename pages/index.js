@@ -1,5 +1,5 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 
 const validationConfig = {
     formSelector: '.popup__form',
@@ -40,30 +40,30 @@ const initialCards = [
 ];
 
 
+
+const popupCloseButton = document.querySelectorAll('.popup__close-button')
+const placesCards = document.querySelector('.places__cards');
+//-------------------------ПРОФАЙЛ НА ГЛАВНОЙ СТРАНИЦЕ---------------------------------------
 const profile = document.querySelector('.profile');
-const popup = document.querySelector('.popup');
-const popupAddCard = document.querySelector('.popup_add-card');
-const popupAddForm = popupAddCard.querySelector('.popup__form')
-const popupAddInputTitle = popupAddForm.querySelector('.popup__input_title')
-const popupAddInputLink = popupAddForm.querySelector('.popup__input_link')
-const popupFormProfile = document.querySelector('.popup_profile');
-const profileInfo = document.querySelector('.profile__info');
+const profileInfo = profile.querySelector('.profile__info');
+const profileInfoTitle = profileInfo.querySelector('.profile__title');
+const profileInfoJob = profileInfo.querySelector('.profile__job');
 const profileEditButton = profile.querySelector('.profile__edit-button');
 const profileAddButton = profile.querySelector('.profile__add-button');
-const profileTitle = profileInfo.querySelector('.profile__title');
-const profileJob = profileInfo.querySelector('.profile__job');
-const popupCloseButton = document.querySelectorAll('.popup__close-button')
-const popupProfileForm = popupFormProfile.querySelector('.popup__form')
-const plascesCards = document.querySelector('.places__cards');
+//-----------------------ПОПАП РЕДАКТИРОВАНИЯ ПРОФАЙЛА---------------------------------------
+const popupProfile = document.querySelector('.popup_profile');
+const popupProfileForm = popupProfile.querySelector('.popup__form')
+const popupProfileInputName = popupProfile.querySelector('.popup__input_name');
+const popupProfileInputJob = popupProfile.querySelector('.popup__input_job');
+//-----------------------ПОПАП ДОБАВЛЕНИЯ КАРТИНОК---------------------------------------
+const popupAddCard = document.querySelector('.popup_add-card');
+const popupAddCardForm = popupAddCard.querySelector('.popup__form')
+const popupAddCardInputTitle = popupAddCardForm.querySelector('.popup__input_title')
+const popupAddCardInputLink = popupAddCardForm.querySelector('.popup__input_link')
+//------------------------ПОПАП ГАЛЕРЕИ----------------------------------------
 const popupGalary = document.querySelector('.popup_galary');
-const fullSizeImg = popupGalary.querySelector('.popup__full-size-img');
-const titleGalary = popupGalary.querySelector('.popup__title_galary');
-const popupInputName = popup.querySelector('.popup__input_name');
-const popupInputJob = popup.querySelector('.popup__input_job');
-const popupFormProf = document.querySelector('.popup__form_profile')
-const popupFormAdd = document.querySelector('.popup__form_add')
-
-
+const popupGalaryFullSizeImg = popupGalary.querySelector('.popup__full-size-img');
+const popupGalaryTitleGalary = popupGalary.querySelector('.popup__title_galary');
 
 
 
@@ -118,9 +118,9 @@ function closeModal(modal) {
 // 6 Открытие попапа для изменения профиля
 function openProfileModal() {
     validateProfileForm.resertForm()
-    popupInputName.value = profileTitle.textContent
-    popupInputJob.value = profileJob.textContent
-    openModal(popupFormProfile)
+    popupProfileInputName.value = profileInfoTitle.textContent
+    popupProfileInputJob.value = profileInfoJob.textContent
+    openModal(popupProfile)
 }
 
 // 7 Открытие попапа для добавление карточек
@@ -133,8 +133,8 @@ function openAddCardModal() {
 // закрытие карточки по нажатию на сабмит
 function submitEditUserProfileForm(evt) {
     evt.preventDefault();
-    profileTitle.textContent = popupInputName.value;
-    profileJob.textContent = popupInputJob.value;
+    profileInfoTitle.textContent = popupProfileInputName.value;
+    profileInfoJob.textContent = popupProfileInputJob.value;
     closeModal(evt.target.parentElement.parentElement)
 }
 
@@ -145,21 +145,21 @@ function submitEditUserProfileForm(evt) {
 // закрывает инпут
 function addCardToStart(evt) {
     evt.preventDefault();
-    const newCard = createCard(popupAddInputTitle.value, popupAddInputLink.value, '#card', openGalaryModal)
-    plascesCards.prepend(newCard.generateCard());
-    popupAddInputTitle.value = ''
-    popupAddInputLink.value = ''
+    const newCard = createCard(popupAddCardInputTitle.value, popupAddCardInputLink.value, '#card', openGalaryModal)
+    placesCards.prepend(newCard.generateCard());
+    popupAddCardInputTitle.value = ''
+    popupAddCardInputLink.value = ''
     closeModal(evt.target.parentElement.parentElement)
 }
 
 const openGalaryModal = (element) => {
     openModal(popupGalary)
-    fullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
-    fullSizeImg.alt = element.querySelector('.places__title').textContent
-    titleGalary.textContent = element.querySelector('.places__title').textContent
+    popupGalaryFullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
+    popupGalaryFullSizeImg.alt = element.querySelector('.places__title').textContent
+    popupGalaryTitleGalary.textContent = element.querySelector('.places__title').textContent
 }
 
-popupAddForm.addEventListener('submit', addCardToStart)
+popupAddCardForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
 profileEditButton.addEventListener('click', openProfileModal);
 profileAddButton.addEventListener('click', openAddCardModal);
@@ -171,13 +171,13 @@ popupCloseButton.forEach(btn => {
 initialCards.forEach((item) => {
     const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
     let nextCard = newCard.generateCard();
-    plascesCards.append(nextCard);
+    placesCards.append(nextCard);
 })
 
 
-const validateProfileForm = new FormValidator(validationConfig, popupFormProf);
+const validateProfileForm = new FormValidator(validationConfig, popupProfileForm);
 validateProfileForm.enableValidation()
-const validateAddForm = new FormValidator(validationConfig, popupFormAdd);
+const validateAddForm = new FormValidator(validationConfig, popupAddCardForm);
 validateAddForm.enableValidation()
 
 
