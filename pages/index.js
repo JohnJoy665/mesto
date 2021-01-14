@@ -2,6 +2,7 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
+import PopupWithImage from '../components/popupWithImage.js'
 
 import {
     validationConfig,
@@ -41,24 +42,24 @@ import {
 // }
 
 //2 навешивает слушатель на кнопку
-const setEscListener = () => {
-    document.addEventListener("keydown", closeOnEsc);
-}
+// const setEscListener = () => {
+//     document.addEventListener("keydown", closeOnEsc);
+// }
 
 //3 проверяет, кликнул ли человек по попапу или мимо
 // если мимо - закрываем
-function checkOverlay(evt) {
-    // console.log(evt.target)
-    if (evt.target.classList.contains('popup_visible')) {
-        closeModal(evt.target)
-    }
-}
+// function checkOverlay(evt) {
+//     // console.log(evt.target)
+//     if (evt.target.classList.contains('popup_visible')) {
+//         closeModal(evt.target)
+//     }
+// }
 
 //4 Ищем оверлей
 // вешаем обработчик на область
-const setOverlayListener = (modal) => {
-    modal.addEventListener('mousedown', checkOverlay)
-}
+// const setOverlayListener = (modal) => {
+//     modal.addEventListener('mousedown', checkOverlay)
+// }
 
 //5 Открываем ПопАп
 // function openModal(modal) {
@@ -67,34 +68,34 @@ const setOverlayListener = (modal) => {
 //     setEscListener(modal);
 // }
 
-function closeModal(modal) {
-    modal.classList.remove('popup_visible')
-    document.removeEventListener("keydown", closeOnEsc);
-    modal.removeEventListener('mousedown', checkOverlay)
-}
+// function closeModal(modal) {
+//     modal.classList.remove('popup_visible')
+//     document.removeEventListener("keydown", closeOnEsc);
+//     modal.removeEventListener('mousedown', checkOverlay)
+// }
 
 // 6 Открытие попапа для изменения профиля
-function openProfileModal() {
-    validateProfileForm.resertForm()
-    popupProfileInputName.value = profileInfoTitle.textContent
-    popupProfileInputJob.value = profileInfoJob.textContent
-    openModal(popupProfile)
-}
+// function openProfileModal() {
+//     validateProfileForm.resertForm()
+//     popupProfileInputName.value = profileInfoTitle.textContent
+//     popupProfileInputJob.value = profileInfoJob.textContent
+//     openModal(popupProfile)
+// }
 
 // 7 Открытие попапа для добавление карточек
-function openAddCardModal() {
-    validateAddForm.resertForm()
-    openModal(popupAddCard)
-}
+// function openAddCardModal() {
+//     validateAddForm.resertForm()
+//     openModal(popupAddCard)
+// }
 
 // 8 изменение информации в профайле
 // закрытие карточки по нажатию на сабмит
-function submitEditUserProfileForm(evt) {
-    evt.preventDefault();
-    profileInfoTitle.textContent = popupProfileInputName.value;
-    profileInfoJob.textContent = popupProfileInputJob.value;
-    closeModal(evt.target.parentElement.parentElement)
-}
+// function submitEditUserProfileForm(evt) {
+//     evt.preventDefault();
+//     profileInfoTitle.textContent = popupProfileInputName.value;
+//     profileInfoJob.textContent = popupProfileInputJob.value;
+//     closeModal(evt.target.parentElement.parentElement)
+// }
 
 // 11 добавление карточки в начало контейнера
 // отправляет классу значения инпутов и селектор
@@ -110,20 +111,20 @@ function submitEditUserProfileForm(evt) {
 //     closeModal(evt.target.parentElement.parentElement)
 // }
 
-const openGalaryModal = (element) => {
-    openModal(popupGalary)
-    popupGalaryFullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
-    popupGalaryFullSizeImg.alt = element.querySelector('.places__title').textContent
-    popupGalaryTitleGalary.textContent = element.querySelector('.places__title').textContent
-}
+// const openGalaryModal = (element) => {
+//     openModal(popupGalary)
+//     popupGalaryFullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
+//     popupGalaryFullSizeImg.alt = element.querySelector('.places__title').textContent
+//     popupGalaryTitleGalary.textContent = element.querySelector('.places__title').textContent
+// }
 
 // popupAddCardForm.addEventListener('submit', addCardToStart)
-popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
-profileEditButton.addEventListener('click', openProfileModal);
-profileAddButton.addEventListener('click', openAddCardModal);
-popupCloseButton.forEach(btn => {
-    btn.addEventListener('click', () => closeModal(btn.closest('.popup')))
-})
+// popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
+// profileEditButton.addEventListener('click', openProfileModal);
+// profileAddButton.addEventListener('click', openAddCardModal);
+// popupCloseButton.forEach(btn => {
+//     btn.addEventListener('click', () => closeModal(btn.closest('.popup')))
+// })
 
 // Отрисовка всех карточек в классе
 // initialCards.forEach((item) => {
@@ -149,20 +150,34 @@ validateAddForm.enableValidation()
 const cardList = new Section({
     data: initialCards,
     renderer: (item) => {
-        const cardElem = new Card(item.name, item.link, '#card', openGalaryModal)
+        const cardElem = new Card({
+            data: item,
+            handleOpenCard: (itemCard) => {
+                const popupWithImg = new PopupWithImage(itemCard.src, itemCard.alt, '.popup_galary');
+                popupWithImg.open()
+            }
+        }, '#card')
         const newCard = cardElem.generateCard();
         cardList.addItem(newCard)
     }
 }, placesCards)
-
 cardList.renderCards()
 
 
+// Открытие попапа
+// const openTest = new Popup('.popup_profile');
+// openTest.open()
 
-const openTest = new Popup(popupAddCard);
 
-openTest.open()
+// Открытие попапа с картинкой
+// const popupWithImg = new PopupWithImage({data: initialCards[1]}, '.popup_galary');
+// popupWithImg.open()
 
+
+// Селекторы
+// popup_profile
+// popup_add-card
+// popup_galary
 
 // popupProfile
 // popupAddCard

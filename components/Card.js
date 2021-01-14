@@ -1,11 +1,11 @@
 export default class Card {
 
     // конструктор - принимает из массива имя, ссылку и селектор
-    constructor(name, link, cardSelector, openGalaryModal) {
-        this._name = name;
-        this._link = link;
+    constructor({data, handleOpenCard}, cardSelector) {
+        this._name = data.name;
+        this._link = data.link;
         this._cardSelector = cardSelector;
-        this._openGalaryModal = openGalaryModal;
+        this._handleOpenCard = handleOpenCard;
     }
 
     // создает шаблон карточки
@@ -30,11 +30,11 @@ export default class Card {
     _setListeners() {
         this._element.querySelector('.places__del-button').addEventListener('click', () => this._handleDelete());
         this._element.querySelector('.places__like').addEventListener('click', () => this._handleLike());
-        this._elementPicture.addEventListener('click', () => this._openGalary());
+        this._elementPicture.addEventListener('click', (evt) => this._handleOpenCard(evt.target));
     }
 
     _openGalary() {
-        this._openGalaryModal(this._element)
+        // this._openGalaryModal(this._element)
     }
 
     _handleDelete() {
