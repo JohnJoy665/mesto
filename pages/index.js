@@ -1,75 +1,31 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_state_disactive',
-    inputErrorClass: 'popup__input_active_disactive',
-    errorClass: 'popup__input-error_active'
-}
-
-const keyEscape = 27;
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+import Section from '../components/Section.js'
+import {
+    validationConfig,
+    keyEscape,
+    initialCards,
+    popupCloseButton,
+    placesCards,
+    profileInfoTitle,
+    profileInfoJob,
+    profileEditButton,
+    profileAddButton,
+    popupProfile,
+    popupProfileForm,
+    popupProfileInputName,
+    popupProfileInputJob,
+    popupAddCard,
+    popupAddCardForm,
+    popupAddCardInputTitle,
+    popupAddCardInputLink,
+    popupGalary,
+    popupGalaryFullSizeImg,
+    popupGalaryTitleGalary
+} from '../utils/constants.js'
 
 
 
-const popupCloseButton = document.querySelectorAll('.popup__close-button')
-const placesCards = document.querySelector('.places__cards');
-//-------------------------ПРОФАЙЛ НА ГЛАВНОЙ СТРАНИЦЕ---------------------------------------
-const profile = document.querySelector('.profile');
-const profileInfo = profile.querySelector('.profile__info');
-const profileInfoTitle = profileInfo.querySelector('.profile__title');
-const profileInfoJob = profileInfo.querySelector('.profile__job');
-const profileEditButton = profile.querySelector('.profile__edit-button');
-const profileAddButton = profile.querySelector('.profile__add-button');
-//-----------------------ПОПАП РЕДАКТИРОВАНИЯ ПРОФАЙЛА---------------------------------------
-const popupProfile = document.querySelector('.popup_profile');
-const popupProfileForm = popupProfile.querySelector('.popup__form')
-const popupProfileInputName = popupProfile.querySelector('.popup__input_name');
-const popupProfileInputJob = popupProfile.querySelector('.popup__input_job');
-//-----------------------ПОПАП ДОБАВЛЕНИЯ КАРТИНОК---------------------------------------
-const popupAddCard = document.querySelector('.popup_add-card');
-const popupAddCardForm = popupAddCard.querySelector('.popup__form')
-const popupAddCardInputTitle = popupAddCardForm.querySelector('.popup__input_title')
-const popupAddCardInputLink = popupAddCardForm.querySelector('.popup__input_link')
-//------------------------ПОПАП ГАЛЕРЕИ----------------------------------------
-const popupGalary = document.querySelector('.popup_galary');
-const popupGalaryFullSizeImg = popupGalary.querySelector('.popup__full-size-img');
-const popupGalaryTitleGalary = popupGalary.querySelector('.popup__title_galary');
-
-
-
-function createCard(name, link, cardSelector, openGalaryModal) {
-    return new Card(name, link, cardSelector, openGalaryModal)
-}
 
 //1 проверяет, кликнул ли человек esc
 // если да - закрываем
@@ -143,14 +99,14 @@ function submitEditUserProfileForm(evt) {
 // подставляет сформированный экземпляр класса в конец контейнера
 // обнуляет значения в инпутах для послед. открытий
 // закрывает инпут
-function addCardToStart(evt) {
-    evt.preventDefault();
-    const newCard = createCard(popupAddCardInputTitle.value, popupAddCardInputLink.value, '#card', openGalaryModal)
-    placesCards.prepend(newCard.generateCard());
-    popupAddCardInputTitle.value = ''
-    popupAddCardInputLink.value = ''
-    closeModal(evt.target.parentElement.parentElement)
-}
+// function addCardToStart(evt) {
+//     evt.preventDefault();
+//     const newCard = createCard(popupAddCardInputTitle.value, popupAddCardInputLink.value, '#card', openGalaryModal)
+//     placesCards.prepend(newCard.generateCard());
+//     popupAddCardInputTitle.value = ''
+//     popupAddCardInputLink.value = ''
+//     closeModal(evt.target.parentElement.parentElement)
+// }
 
 const openGalaryModal = (element) => {
     openModal(popupGalary)
@@ -159,7 +115,7 @@ const openGalaryModal = (element) => {
     popupGalaryTitleGalary.textContent = element.querySelector('.places__title').textContent
 }
 
-popupAddCardForm.addEventListener('submit', addCardToStart)
+// popupAddCardForm.addEventListener('submit', addCardToStart)
 popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
 profileEditButton.addEventListener('click', openProfileModal);
 profileAddButton.addEventListener('click', openAddCardModal);
@@ -168,11 +124,11 @@ popupCloseButton.forEach(btn => {
 })
 
 // Отрисовка всех карточек в классе
-initialCards.forEach((item) => {
-    const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
-    let nextCard = newCard.generateCard();
-    placesCards.append(nextCard);
-})
+// initialCards.forEach((item) => {
+//     const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
+//     let nextCard = newCard.generateCard();
+//     placesCards.append(nextCard);
+// })
 
 
 const validateProfileForm = new FormValidator(validationConfig, popupProfileForm);
@@ -182,3 +138,19 @@ validateAddForm.enableValidation()
 
 
 
+// function createCard(name, link, cardSelector, openGalaryModal) {
+//     return new Card(name, link, cardSelector, openGalaryModal)
+// }
+
+
+// добавление всех карточек из массива на страницу
+const cardList = new Section({
+    data: initialCards,
+    renderer: (item) => {
+        const cardElem = new Card(item.name, item.link, '#card', openGalaryModal)
+        const newCard = cardElem.generateCard();
+        cardList.addItem(newCard)
+    }
+}, placesCards)
+
+cardList.renderCards()
