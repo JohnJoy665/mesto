@@ -36,11 +36,7 @@ export const initialCards = [
     }
 ];
 
-
-
-export const popupCloseButton = document.querySelectorAll('.popup__close-button')
 export const placesCards = document.querySelector('.places__cards');
-
 //-------------------------ПРОФАЙЛ НА ГЛАВНОЙ СТРАНИЦЕ---------------------------------------
 export const profile = document.querySelector('.profile');
 export const profileInfo = profile.querySelector('.profile__info');

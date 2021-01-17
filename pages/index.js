@@ -1,150 +1,30 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js'
-import Popup from '../components/Popup.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
 
 import {
     validationConfig,
-    keyEscape,
     initialCards,
-    popupCloseButton,
     placesCards,
     profileInfoTitle,
     profileInfoJob,
     profileEditButton,
     profileAddButton,
-    popupProfile,
     popupProfileForm,
     popupProfileInputName,
     popupProfileInputJob,
-    popupAddCard,
     popupAddCardForm,
-    popupAddCardInputTitle,
-    popupAddCardInputLink,
-    popupGalary,
-    popupGalaryFullSizeImg,
-    popupGalaryTitleGalary
 } from '../utils/constants.js'
 
-
-
-
-//1 проверяет, кликнул ли человек esc
-// если да - закрываем
-// function closeOnEsc(evt) {
-//     const modal = document.querySelector('.popup_visible')
-
-//     if (evt.keyCode === keyEscape) {
-//         closeModal(modal);
-
-//     }
-// }
-
-//2 навешивает слушатель на кнопку
-// const setEscListener = () => {
-//     document.addEventListener("keydown", closeOnEsc);
-// }
-
-//3 проверяет, кликнул ли человек по попапу или мимо
-// если мимо - закрываем
-// function checkOverlay(evt) {
-
-//     if (evt.target.classList.contains('popup_visible')) {
-//         closeModal(evt.target)
-//     }
-// }
-
-//4 Ищем оверлей
-// вешаем обработчик на область
-// const setOverlayListener = (modal) => {
-//     modal.addEventListener('mousedown', checkOverlay)
-// }
-
-//5 Открываем ПопАп
-// function openModal(modal) {
-//     modal.classList.add('popup_visible');
-//     setOverlayListener(modal);
-//     setEscListener(modal);
-// }
-
-// function closeModal(modal) {
-//     modal.classList.remove('popup_visible')
-//     document.removeEventListener("keydown", closeOnEsc);
-//     modal.removeEventListener('mousedown', checkOverlay)
-// }
-
-// 6 Открытие попапа для изменения профиля
-// function openProfileModal() {
-//     validateProfileForm.resertForm()
-//     popupProfileInputName.value = profileInfoTitle.textContent
-//     popupProfileInputJob.value = profileInfoJob.textContent
-//     openModal(popupProfile)
-// }
-
-// 7 Открытие попапа для добавление карточек
-// function openAddCardModal() {
-//     validateAddForm.resertForm()
-//     openModal(popupAddCard)
-// }
-
-// 8 изменение информации в профайле
-// закрытие карточки по нажатию на сабмит
-// function submitEditUserProfileForm(evt) {
-//     evt.preventDefault();
-//     profileInfoTitle.textContent = popupProfileInputName.value;
-//     profileInfoJob.textContent = popupProfileInputJob.value;
-//     closeModal(evt.target.parentElement.parentElement)
-// }
-
-// 11 добавление карточки в начало контейнера
-// отправляет классу значения инпутов и селектор
-// подставляет сформированный экземпляр класса в конец контейнера
-// обнуляет значения в инпутах для послед. открытий
-// закрывает инпут
-// function addCardToStart(evt) {
-//     evt.preventDefault();
-//     const newCard = createCard(popupAddCardInputTitle.value, popupAddCardInputLink.value, '#card', openGalaryModal)
-//     placesCards.prepend(newCard.generateCard());
-//     popupAddCardInputTitle.value = ''
-//     popupAddCardInputLink.value = ''
-//     closeModal(evt.target.parentElement.parentElement)
-// }
-
-// const openGalaryModal = (element) => {
-//     openModal(popupGalary)
-//     popupGalaryFullSizeImg.src = element.querySelector('.places__picture').getAttribute('src')
-//     popupGalaryFullSizeImg.alt = element.querySelector('.places__title').textContent
-//     popupGalaryTitleGalary.textContent = element.querySelector('.places__title').textContent
-// }
-
-// popupAddCardForm.addEventListener('submit', addCardToStart)
-// popupProfileForm.addEventListener('submit', submitEditUserProfileForm);
-// profileEditButton.addEventListener('click', openProfileModal);
-// profileAddButton.addEventListener('click', openAddCardModal);
-// popupCloseButton.forEach(btn => {
-//     btn.addEventListener('click', () => closeModal(btn.closest('.popup')))
-// })
-
-// Отрисовка всех карточек в классе
-// initialCards.forEach((item) => {
-//     const newCard = createCard(item.name, item.link, '#card', openGalaryModal)
-//     let nextCard = newCard.generateCard();
-//     placesCards.append(nextCard);
-// })
 
 
 const validateProfileForm = new FormValidator(validationConfig, popupProfileForm);
 validateProfileForm.enableValidation()
 const validateAddForm = new FormValidator(validationConfig, popupAddCardForm);
 validateAddForm.enableValidation()
-
-
-
-// function createCard(name, link, cardSelector, openGalaryModal) {
-//     return new Card(name, link, cardSelector, openGalaryModal)
-// }
 
 
 // добавление всех карточек из массива на страницу
@@ -167,20 +47,14 @@ cardList.renderCards()
 
 
 
-
-
-
-
-
+// добавление каждой отдельной карточки
 const newPopupAddCard = new PopupWithForm({
     handleFormSubmit: (item) => { // здесь хранятся данные карточки для создания
-//--------------------------------------------------------------------------------------------------------------------------------
         const newCardPlace = new Section({ // здесь создается новый экземпляр для вставки карточки в верстку
             data:[], // пустой массив
             renderer: () => { // пустая ф-ия
             }
-        }, placesCards)
-//--------------------------------------------------------------------------------------------------------------------------------
+        }, placesCards);
         const newElemCard = new Card({ // вот тут я создаю новую карточку
             data: {name: item['input-title'], link: item['input-link']},
             handleOpenCard: (itemCard) => {
@@ -191,18 +65,40 @@ const newPopupAddCard = new PopupWithForm({
         }, '#card')
         const newCardToStart = newElemCard.generateCard()
         newCardPlace.addItemToStart(newCardToStart)
-        // по идее здесь мы можем отрисовать карточку, а затем вызвать newCardPlace.addItemToStart(elem) и вставить ее в 
     }
 }, '.popup_add-card')
+
+
 newPopupAddCard._setEventListeners()
-
-
-
 function openPopupAddCard() {
     newPopupAddCard.open()
     validateAddForm.enableValidation()
 }
 
 
-profileAddButton.addEventListener('click', openPopupAddCard);
+// Обновление инфы о пользователе
+const newUserInfo = new UserInfo({
+    personInformation: {
+        name: profileInfoTitle,
+        profession: profileInfoJob
+    }
+})
 
+const newPopupEditPerson = new PopupWithForm({
+    handleFormSubmit: (item) => {
+        newUserInfo.setUserInfo(item)
+    }
+}, '.popup_profile')
+newPopupEditPerson._setEventListeners()
+
+function openPopupProfile() {
+    const userInfo = newUserInfo.getUserInfo()
+    popupProfileInputName.value = userInfo.name
+    popupProfileInputJob.value = userInfo.prof
+    validateProfileForm.enableValidation()
+    newPopupEditPerson.open()
+}
+
+
+profileAddButton.addEventListener('click', openPopupAddCard);
+profileEditButton.addEventListener('click', openPopupProfile);
