@@ -33,10 +33,6 @@ export default class Card {
         this._elementPicture.addEventListener('click', (evt) => this._handleOpenCard(evt.target));
     }
 
-    _openGalary() {
-        // this._openGalaryModal(this._element)
-    }
-
     _handleDelete() {
         this._element.remove();
     }

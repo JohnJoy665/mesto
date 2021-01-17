@@ -9,6 +9,10 @@ export default class Section {
         this._cardSelector.append(elem)
     }
 
+    addItemToStart(elem) {
+        this._cardSelector.prepend(elem)
+    }
+
     renderCards() {
         this._initialArray.forEach(element => {
             this._renderer(element)

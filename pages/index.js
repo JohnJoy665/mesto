@@ -2,7 +2,8 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js'
 import Popup from '../components/Popup.js'
-import PopupWithImage from '../components/popupWithImage.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
 
 import {
     validationConfig,
@@ -49,7 +50,7 @@ import {
 //3 проверяет, кликнул ли человек по попапу или мимо
 // если мимо - закрываем
 // function checkOverlay(evt) {
-//     // console.log(evt.target)
+
 //     if (evt.target.classList.contains('popup_visible')) {
 //         closeModal(evt.target)
 //     }
@@ -154,6 +155,7 @@ const cardList = new Section({
             data: item,
             handleOpenCard: (itemCard) => {
                 const popupWithImg = new PopupWithImage(itemCard.src, itemCard.alt, '.popup_galary');
+                popupWithImg._setEventListeners()
                 popupWithImg.open()
             }
         }, '#card')
@@ -164,21 +166,43 @@ const cardList = new Section({
 cardList.renderCards()
 
 
-// Открытие попапа
-// const openTest = new Popup('.popup_profile');
-// openTest.open()
 
 
-// Открытие попапа с картинкой
-// const popupWithImg = new PopupWithImage({data: initialCards[1]}, '.popup_galary');
-// popupWithImg.open()
 
 
-// Селекторы
-// popup_profile
-// popup_add-card
-// popup_galary
 
-// popupProfile
-// popupAddCard
-// popupGalary
+
+const newPopupAddCard = new PopupWithForm({
+    handleFormSubmit: (item) => { // здесь хранятся данные карточки для создания
+//--------------------------------------------------------------------------------------------------------------------------------
+        const newCardPlace = new Section({ // здесь создается новый экземпляр для вставки карточки в верстку
+            data:[], // пустой массив
+            renderer: () => { // пустая ф-ия
+            }
+        }, placesCards)
+//--------------------------------------------------------------------------------------------------------------------------------
+        const newElemCard = new Card({ // вот тут я создаю новую карточку
+            data: {name: item['input-title'], link: item['input-link']},
+            handleOpenCard: (itemCard) => {
+                const popupWithImg = new PopupWithImage(itemCard.src, itemCard.alt, '.popup_galary');
+                popupWithImg._setEventListeners()
+                popupWithImg.open()
+            }
+        }, '#card')
+        const newCardToStart = newElemCard.generateCard()
+        newCardPlace.addItemToStart(newCardToStart)
+        // по идее здесь мы можем отрисовать карточку, а затем вызвать newCardPlace.addItemToStart(elem) и вставить ее в 
+    }
+}, '.popup_add-card')
+newPopupAddCard._setEventListeners()
+
+
+
+function openPopupAddCard() {
+    newPopupAddCard.open()
+    validateAddForm.enableValidation()
+}
+
+
+profileAddButton.addEventListener('click', openPopupAddCard);
+
