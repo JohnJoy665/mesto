@@ -30,7 +30,7 @@ export default class Card {
     _setListeners() {
         this._element.querySelector('.places__del-button').addEventListener('click', () => this._handleDelete());
         this._element.querySelector('.places__like').addEventListener('click', () => this._handleLike());
-        this._elementPicture.addEventListener('click', (evt) => this._handleOpenCard(evt.target));
+        this._elementPicture.addEventListener('click', () => this._handleOpenCard(this._name, this._link));
     }
 
     _handleDelete() {

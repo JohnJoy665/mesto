@@ -1,93 +1,87 @@
-// const validate = new FormValidator(params, '.popup__submit-button');
+
 export default class FormValidator {
-    constructor(params, formSelector) {
+    constructor(params, formElement) {
         this._inputSelector = params.inputSelector;//'.popup__input',
         this._submitButtonSelector = params.submitButtonSelector; //'.popup__submit-button',
         this._inactiveButtonClass = params.inactiveButtonClass; //'popup__submit-button_state_disactive',
         this._inputErrorClass = params.inputErrorClass; //'popup__input_active_disactive',
         this._errorClass = params.errorClass; //'popup__input-error_active'
-        this._formSelector = formSelector;
-    }
+        this._formElement = formElement; // popupProfile.querySelector('.popup__form')
+        this._inputList = this._formElement.querySelectorAll(this._inputSelector);
+        this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
+        this._arrInputList = Array.from(this._inputList);
+    };
 
-    resertForm() {
-        const inputList = this._formSelector.querySelectorAll(this._inputSelector)
-        const submitButton = this._formSelector.querySelector(this._submitButtonSelector)
-        inputList.forEach(input => {
-            input.value = ''
-            input.classList.remove(this._inputErrorClass)
-            input.nextSibling.nextSibling.classList.remove(this._errorClass)
-        })
-        submitButton.classList.add(this._inactiveButtonClass)
-        submitButton.setAttribute("disabled", "true");
-}
 
-    _toggleSubmitButton(formElement, inputList) {
-        const buttonElement = formElement.querySelector(this._submitButtonSelector)
-        const hasInvalidInput = inputList.some(
+    resetForm() {
+        this._arrInputList.forEach(input => {
+            this._hideInputError(input)
+            this._toggleSubmitButton()
+        });
+    };
+
+
+    _checkInput() {
+        return this._arrInputList.some(
             (elem) => !elem.validity.valid
-        )
+        );
+    };
 
-        if (hasInvalidInput) {
-            buttonElement.classList.add(this._inactiveButtonClass)
-            buttonElement.setAttribute("disabled", "true");
+
+    _toggleSubmitButton() {
+        if (this._checkInput()) {
+            this._submitButton.classList.add(this._inactiveButtonClass)
+            this._submitButton.setAttribute("disabled", "true");
         } else {
-            buttonElement.classList.remove(this._inactiveButtonClass)
-            buttonElement.removeAttribute("disabled", "true");
-        }
+            this._submitButton.classList.remove(this._inactiveButtonClass)
+            this._submitButton.removeAttribute("disabled", "true");
+        };
+    };
 
-    }
 
-    _showInputError(formElement, inputElement, errorMessage) {
-        const errorElem = formElement.querySelector(`#${inputElement.id}-error`)
+    _showInputError(inputElement, errorMessage) {
+        const errorElem = this._formElement.querySelector(`#${inputElement.id}-error`);
         errorElem.textContent = errorMessage;
-        errorElem.classList.add(this._errorClass)
-        inputElement.classList.add(this._inputErrorClass)
-    };
-    _hideInputError(formElement, inputElement) {
-        const errorElem = formElement.querySelector(`#${inputElement.id}-error`)
-        errorElem.textContent = "";
-        errorElem.classList.remove(this._errorClass)
-        inputElement.classList.remove(this._inputErrorClass)
+        errorElem.classList.add(this._errorClass);
+        inputElement.classList.add(this._inputErrorClass);
     };
 
-    // принимаем инпут
-    // проверяем признак валидации:
-    // если валидна - передаем инпут
-    // если не валидна - передаем инпут и сообщение
-    _checkInputValidity(formElement, inputElement) {
+
+    _hideInputError(inputElement) {
+        const errorElem = this._formElement.querySelector(`#${inputElement.id}-error`);
+        errorElem.textContent = "";
+        errorElem.classList.remove(this._errorClass);
+        inputElement.classList.remove(this._inputErrorClass);
+    };
+
+
+    _checkInputValidity(inputElement) {
         const isInputNotValid = !inputElement.validity.valid;
         if (isInputNotValid) {
             const errorMessage = inputElement.validationMessage;
-            this._showInputError(formElement, inputElement, errorMessage)
+            this._showInputError(inputElement, errorMessage)
         } else {
-            this._hideInputError(formElement, inputElement)
-        }
-    }
+            this._hideInputError(inputElement)
+        };
+    };
 
-    // принимаем форму
-    // находим все инпуты
-    // создаем из них массив и в каждом проставляем слушателя на ввод
-    // вызываем функцию проверки валидации (при каждом вводе) и передаем ей инпут, по которому кликаем
-    _setEventListeners(formElement) {
-        const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
-        inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', (event) => {
-                this._checkInputValidity(formElement, inputElement);
-                this._toggleSubmitButton(formElement, inputList);
+
+    _setEventListeners() {
+        this._arrInputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+                this._checkInputValidity(inputElement);
+                this._toggleSubmitButton();
             })
         })
-        this._toggleSubmitButton(formElement, inputList);
-        // this._checkInputValidity(formElement, inputElement);
-    }
+        this._toggleSubmitButton();
+    };
 
-    // находим форму по селектору
-    // получаем дом элемент
-    // вызываем слушателя события и передаем ему форму
-    enableValidation () {
-        this._formSelector.addEventListener('submit', (event) => {
-            event.preventDefault()
+
+    enableValidation() {
+        this._formElement.addEventListener('submit', (event) => {
+            event.preventDefault();
         });
-        this._setEventListeners(this._formSelector)
-    }
+        this._setEventListeners();
+    };
+};
 
-}
