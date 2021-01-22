@@ -9,19 +9,23 @@
 
 @import url(../blocks/popup/popup.css);
 
+@import url(../blocks/popup/_edit-avatar/popup_edit-avatar.css);
 @import url(../blocks/popup/_profile/popup_profile.css);
 @import url(../blocks/popup/_galary/popup_galary.css);
 @import url(../blocks/popup/_add-card/popup_add-card.css);
+@import url(../blocks/popup/__submit-button/_del-card/popup__submit-button_del-card.css);
+@import url(../blocks/popup/__title/_del-card/popup__title_del-card.css);
 @import url(../blocks/popup/__container/_add-card/popup__container_add-card.css);
 @import url(../blocks/popup/__container/_galary/popup__container_galary.css);
 @import url(../blocks/popup/__container/_profile/popup__container_profile.css);
+@import url(../blocks/popup/__container/_edit-avatar/popup__container_edit-avatar.css);
 @import url(../blocks/popup/__title/_galary/popup__title_galary.css);
 @import url(../blocks/places/__like/_is-active/places__like_is-active.css);
 @import url(../blocks/popup/_visible/popup_visible.css);
 @import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__submit-button/_state/popup__submit-button_state_disactive.css);
 @import url(../blocks/popup/__input/_active/popup__input_active_disactive.css);
-
+@import url(../blocks/places/__del-button/_visible/places__del-button_is-visible.css)
 
 
 

@@ -13,8 +13,8 @@ export default class Section {
         this._cardSelector.prepend(elem)
     }
 
-    renderCards() {
-        this._initialArray.forEach(element => {
+    renderCards(cardList) {
+        cardList.forEach(element => {
             this._renderer(element)
         });
     }

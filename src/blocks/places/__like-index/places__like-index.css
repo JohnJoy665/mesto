@@ -1,0 +1,8 @@
+.places__like-index {
+    Width: 10px;
+    Height: 13px;
+    position: absolute;
+    right: 25px;
+    bottom: 20px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+}

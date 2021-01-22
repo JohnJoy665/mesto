@@ -3,6 +3,7 @@
 @import url(./__picture/places__picture.css);
 @import url(./__title/places__title.css);
 @import url(./__like/places__like.css);
+@import url(./__like-index/places__like-index.css);
 @import url(./__del-button/places__del-button.css);
 
 .places {

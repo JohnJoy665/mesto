@@ -1,23 +1,26 @@
 export default class UserInfo {
-    constructor({personInformation}) {
+    constructor({ personInformation }) {
         this._elemPersonName = personInformation.name
         this._elemPersonProf = personInformation.profession
+        this._avatar = personInformation.avatar
+        this._id
     }
 
     getUserInfo() {
         const personInfoName = {
             name: this._elemPersonName.textContent,
-            prof:  this._elemPersonProf.textContent
+            job: this._elemPersonProf.textContent,
+            avatar: this._avatar.style.backgroundImage,
+            id: this._id
         }
         return personInfoName
     }
 
-    setUserInfo (item) {
-        if ((this._elemPersonName.textContent === item['input-name']) && (this._elemPersonProf.textContent === item['input-job'])) {
-            return
-        } else {
-            this._elemPersonName.textContent = item['input-name']
-            this._elemPersonProf.textContent = item['input-job']
+    setUserInfo(name, job, avatar, id) {
+        this._elemPersonName.textContent = name
+        this._elemPersonProf.textContent = job
+        this._avatar.style.backgroundImage = `url("${avatar}")`
+        this._id = id
         }
-    }
 }
+// }
