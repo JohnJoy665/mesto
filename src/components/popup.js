@@ -32,7 +32,7 @@ export default class Popup {
     }
     
     _setEventListeners() {
-        document.addEventListener('mousedown', this._checkOverlay)
+        this._popupElement.addEventListener('mousedown', this._checkOverlay)
         this._closeButton.addEventListener('click', () => {
             this.close()
         })

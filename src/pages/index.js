@@ -51,6 +51,12 @@ validateEditAvatar.enableValidation();
 const popupWithImg = new PopupWithImage('.popup_galary');
 popupWithImg._setEventListeners();
 
+const popupDelButton = new PopupDelButton({
+    handleFormSubmit: (item) => {
+        popupDelButton.setSubmitAction(item)
+    }
+}, '.popup_del-card')
+
 
 // наполнение карточки
 function createCard(cardItems) {
@@ -76,19 +82,16 @@ function createCard(cardItems) {
                 .catch((err) => { console.log(`Ошибка ${err}`) })
         },
         handleDelButton: (cardId, cardElement) => {
-            const popupDelButton = new PopupDelButton({
-                handleFormSubmit: (item) => {
-                    toggleButtonText(popupDelCard, 'Сохранение...')
-                    api.deleteCard(item)
-                        .then((data) => {
-                            popupDelButton.del(cardElement)
-                            popupDelButton.close()
-                            toggleButtonText(popupDelCard, 'Да')
-                        })
-                        .catch((err) => { console.log(`Ошибка ${err}`) })
-                },
-                dataCard: cardId
-            }, '.popup_del-card');
+            popupDelButton.setSubmitAction(() => {
+                toggleButtonText(popupDelCard, 'Сохранение...')
+                api.deleteCard(cardId)
+                    .then(() => {
+                        popupDelButton.del(cardElement)
+                        popupDelButton.close()
+                        toggleButtonText(popupDelCard, 'Да')
+                    })
+                    .catch((err) => { console.log(`Ошибка ${err}`) })
+            })
             popupDelButton.setEventListeners()
             popupDelButton.open()
         }
@@ -138,7 +141,6 @@ newPopupAddCard.setEventListeners();
 function openEditAvatar() {
     const newAvatar = new PopupWithForm({
         handleFormSubmit: (item) => {
-            console.log('тут')
             toggleButtonText(popupEditAvatar, 'Сохранение...')
             api.newAvatar(item['input-link'])
                 .then((data) => {
@@ -217,3 +219,35 @@ profileAddButton.addEventListener('click', openPopupAddCard);
 profileEditButton.addEventListener('click', openPopupProfile);
 //слушатель на аватар
 profileAvatar.addEventListener('click', openEditAvatar);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // const popupDelButton = new PopupDelButton({
+            //     handleFormSubmit: (item) => {
+            //         toggleButtonText(popupDelCard, 'Сохранение...')
+            //         api.deleteCard(item)
+            //             .then((data) => {
+            //                 popupDelButton.del(cardElement)
+            //                 popupDelButton.close()
+            //                 toggleButtonText(popupDelCard, 'Да')
+            //             })
+            //             .catch((err) => { console.log(`Ошибка ${err}`) })
+            //     },
+            //     dataCard: cardId
+            // }, '.popup_del-card');

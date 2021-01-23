@@ -74,7 +74,6 @@ export default class Card {
     }
 
     _checkLike(likes) {
-        console.log(likes)
         if (likes.some((element) => {
             return element._id === this._userId
         })) {
