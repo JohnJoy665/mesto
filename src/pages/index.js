@@ -33,7 +33,7 @@ import {
 //функция UX ожидания
 function toggleButtonText(popupElement, text) {
     const buttonElement = popupElement.querySelector('.popup__submit-button')
-    buttonElement.innerHTML = text
+    buttonElement.textContent = text
 }
 
 
@@ -56,6 +56,7 @@ const popupDelButton = new PopupDelButton({
         popupDelButton.setSubmitAction(item)
     }
 }, '.popup_del-card')
+popupDelButton.setEventListeners()
 
 
 // наполнение карточки
@@ -92,7 +93,6 @@ function createCard(cardItems) {
                     })
                     .catch((err) => { console.log(`Ошибка ${err}`) })
             })
-            popupDelButton.setEventListeners()
             popupDelButton.open()
         }
     }, '#card');
